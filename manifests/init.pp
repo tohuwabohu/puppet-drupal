@@ -20,8 +20,8 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal (
-  $package_dir = $drupal::package_dir,
-  $install_dir = $drupal::install_dir,
+  $package_dir = $drupal::params::package_dir,
+  $install_dir = $drupal::params::install_dir,
 ) inherits drupal::params {
 
   validate_absolute_path($package_dir)
