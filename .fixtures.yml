@@ -1,5 +1,8 @@
 fixtures:
   repositories:
+    archive:
+      repo: "https://github.com/gini/puppet-archive.git"
+      ref: "gini-archive-0.2.0"
     stdlib:
       repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
       ref: "4.3.2"
