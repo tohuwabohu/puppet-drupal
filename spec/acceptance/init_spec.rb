@@ -27,6 +27,11 @@ describe 'by default' do
     expect(apply_manifest(pp, :catch_failures => true).exit_code).to be_zero
   end
 
+  describe file('/usr/local/bin/composer') do
+    specify { should be_file }
+    specify { should be_executable }
+  end
+
   describe file('/opt/drupal.org') do
     specify { should be_directory }
   end

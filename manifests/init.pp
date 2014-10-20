@@ -33,4 +33,6 @@ class drupal (
     group  => 'root',
     mode   => '0644',
   }
+
+  class { 'drupal::install': }
 }

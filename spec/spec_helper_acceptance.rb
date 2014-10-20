@@ -4,6 +4,8 @@ require 'beaker-rspec/helpers/serverspec'
 unless ENV['BEAKER_PROVISION'] == 'no'
   hosts.each do |host|
     install_puppet
+    install_package host, 'curl'
+    install_package host, 'php5-cli'
   end
 end
 
