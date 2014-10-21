@@ -25,19 +25,11 @@ define drupal::core (
 
   require drupal
 
-  $archive = "drupal-${version}"
-  $archive_url = "http://ftp.drupal.org/files/projects/drupal-${version}.tar.gz"
+  $drupal_archive = "drupal-${version}"
 
-  archive { $archive:
-    ensure        => present,
-    checksum      => !empty($archive_md5sum),
-    digest_string => $archive_md5sum,
-    url           => $archive_url,
-    target        => $drupal::install_dir,
-    src_target    => $drupal::package_dir,
-    require       => [
-      File[$drupal::install_dir],
-      File[$drupal::package_dir],
-    ],
+  exec { "install-${drupal_archive}":
+    command => "${drupal::drush_executable} dl ${drupal_archive} --destination=${drupal::install_dir}",
+    creates => "${drupal::install_dir}/${drupal_archive}",
+    require => File[$drupal::drush_executable],
   }
 }

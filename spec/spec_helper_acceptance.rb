@@ -21,9 +21,8 @@ RSpec.configure do |c|
       copy_module_to(host, :source => proj_root, :module_name => 'drupal')
 
       # Install dependencies
-      on host, puppet('module', 'install', 'gini-archive', '--version 0.2.0'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'puppetlabs-vcsrepo', '--version 1.1.0'), { :acceptable_exit_codes => [0] }
-      on host, puppet('module', 'install', 'puppetlabs-stdlib', '--version 4.3.2'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module', 'install', 'puppetlabs-vcsrepo', '--version 1.1.0')
+      on host, puppet('module', 'install', 'puppetlabs-stdlib', '--version 4.3.2')
     end
   end
 end
