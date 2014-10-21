@@ -23,8 +23,8 @@ describe 'by default' do
     EOS
 
     # Run it twice and test for idempotency
-    apply_manifest(pp, :catch_failures => true)
-    expect(apply_manifest(pp, :catch_failures => true).exit_code).to be_zero
+    apply_manifest(pp, :expect_changes => true)
+    apply_manifest(pp, :catch_changes => true)
   end
 
   describe file('/usr/local/bin/composer') do
@@ -34,6 +34,15 @@ describe 'by default' do
 
   describe file('/opt/drupal.org') do
     specify { should be_directory }
+  end
+
+  describe file('/opt/drupal.org/drush') do
+    specify { should be_directory }
+  end
+
+  describe file('/usr/local/bin/drush') do
+    specify { should be_file }
+    specify { should be_executable }
   end
 
   describe file('/opt/drupal.org/drupal-6.33') do

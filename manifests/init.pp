@@ -27,6 +27,9 @@ class drupal (
   validate_absolute_path($package_dir)
   validate_absolute_path($install_dir)
 
+  $drush_dir = "${drupal::install_dir}/drush"
+  $drush_executable = '/usr/local/bin/drush'
+
   file { $install_dir:
     ensure => directory,
     owner  => 'root',
