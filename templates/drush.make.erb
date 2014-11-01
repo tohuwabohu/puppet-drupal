@@ -1,0 +1,13 @@
+; Managed by Puppet
+
+; API
+api = 2
+
+; Core
+core = <%= @core_major_version %>.x
+projects[drupal][version] = <%= @core_version %>
+
+; Contrib modules
+<%- @modules.sort.each do |key, version| -%>
+projects[<%= key %>][version] = <%= version %>
+<%- end -%>
