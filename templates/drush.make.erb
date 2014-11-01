@@ -5,9 +5,9 @@ api = 2
 
 ; Core
 core = <%= @core_major_version %>.x
-projects[drupal][version] = <%= @core_version %>
+projects[drupal] = <%= @core_version %>
 
 ; Contrib modules
 <%- @modules.sort.each do |key, version| -%>
-projects[<%= key %>][version] = <%= version %>
+projects[<%= key %>] = <%= version %>
 <%- end -%>
