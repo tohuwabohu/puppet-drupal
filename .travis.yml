@@ -1,7 +1,4 @@
 ---
-branches:
-  only:
-    - master
 language: ruby
 cache: bundler
 bundler_args: --without development
