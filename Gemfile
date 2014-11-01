@@ -7,7 +7,9 @@ group :development, :test do
   gem 'puppetlabs_spec_helper', '~> 0.4.1'
   gem 'puppet-syntax', '~> 1.1.1'
   gem 'puppet-lint', '~> 0.3.2'
+end
 
+group :development, :beaker do
   gem 'beaker', '~> 1.19.1'
   gem 'beaker-rspec', '~> 3.0.0'
   gem 'serverspec', '~> 1.7.0'
