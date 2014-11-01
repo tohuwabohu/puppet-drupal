@@ -7,10 +7,17 @@ describe 'drupal' do
     let(:params) { {} }
 
     specify { should contain_file('/opt/drupal.org').with_ensure('directory') }
+    specify { should contain_file('/etc/drupal').with_ensure('directory') }
   end
 
-  describe 'with install_directory => /path/to/dir' do
+  describe 'with install_dir => /path/to/dir' do
     let(:params) { {:install_dir => '/path/to/dir'} }
+
+    specify { should contain_file('/path/to/dir').with_ensure('directory') }
+  end
+
+  describe 'with config_dir => /path/to/dir' do
+    let(:params) { {:config_dir => '/path/to/dir'} }
 
     specify { should contain_file('/path/to/dir').with_ensure('directory') }
   end

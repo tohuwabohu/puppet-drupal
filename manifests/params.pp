@@ -18,4 +18,8 @@ class drupal::params {
   $install_dir = $::osfamily ? {
     default => '/opt/drupal.org',
   }
+
+  $config_dir = $::osfamily ? {
+    default => '/etc/drupal'
+  }
 }
