@@ -20,6 +20,11 @@ describe 'by default' do
       drupal::site { 'drupal-6.x':
         core_version => '6.33',
         modules      => {
+          'cck'   => {
+            'type' => 'file',
+            'url'  => 'http://ftp.drupal.org/files/projects/cck-6.x-2.9.tar.gz',
+            'md5'  => '9e30f22592b7ecf08d020e0c626efc5b'
+          },
           'views' => '2.16',
         },
       }
@@ -65,6 +70,10 @@ describe 'by default' do
 
   describe file('/var/www/drupal-6.x/modules/system/system.info') do
     its(:content) { should match /version = "6.33"/ }
+  end
+
+  describe file('/var/www/drupal-6.x/sites/all/modules/cck/content.info') do
+    its(:content) { should match /version = "6.x-2.9"/ }
   end
 
   describe file('/var/www/drupal-6.x/sites/all/modules/views/views.info') do

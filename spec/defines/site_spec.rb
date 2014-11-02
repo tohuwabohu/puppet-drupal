@@ -25,4 +25,20 @@ describe 'drupal::site' do
 
     specify { should contain_file(make_file).with_content(/projects\[views\] = 3\.8/) }
   end
+
+  describe 'with modules view ' do
+    let(:view_module) do
+      {
+          'type' => 'file',
+          'url'  => 'http://example.com/file.zip',
+          'md5'  => 'beef'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[type\] = module/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[type\] = file/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[url\] = http:\/\/example.com\/file.zip/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[md5\] = beef/) }
+  end
 end
