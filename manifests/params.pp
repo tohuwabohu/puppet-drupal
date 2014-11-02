@@ -26,4 +26,8 @@ class drupal::params {
   $log_dir = $::osfamily ? {
     default => '/var/log/drush'
   }
+
+  $www_dir = $::osfamily ? {
+    default => '/var/www'
+  }
 }
