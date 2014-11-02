@@ -64,6 +64,22 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[revision\] = beef/) }
   end
 
+  describe 'with patches for a module' do
+    let(:view_module) do
+      {
+        'version' => '1.0',
+        'patch'   => [
+          'http://example.com/first.patch',
+          '/path/to/patch'
+        ]
+      }
+    end
+    let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[patch\]\[\] = \/path\/to\/patch/) }
+  end
+
   describe 'with theme zen from drupal.org (shorthand notion)' do
     let(:params) { {:core_version => '7.0', :themes => { 'zen' => '5.5' } } }
 
@@ -106,5 +122,21 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = git/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[revision\] = beef/) }
+  end
+
+  describe 'with patches for a module' do
+    let(:zen_theme) do
+      {
+        'version' => '1.0',
+        'patch'   => [
+          'http://example.com/first.patch',
+          '/path/to/patch'
+        ]
+      }
+    end
+    let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = \/path\/to\/patch/) }
   end
 end

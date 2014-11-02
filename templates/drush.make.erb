@@ -25,6 +25,10 @@ projects[<%= module_name %>][type] = module
     <%- module_data.sort.each do |data_key, data_value| -%>
         <%- if data_key == 'version' -%>
 projects[<%= module_name %>][version] = <%= data_value %>
+        <%- elsif data_key == 'patch' -%>
+            <%- data_value.each do |patch_file| -%>
+projects[<%= module_name %>][patch][] = <%= patch_file %>
+            <%- end -%>
         <%- else -%>
 projects[<%= module_name %>][download][<%= data_key %>] = <%= data_value %>
         <%- end -%>
@@ -37,6 +41,10 @@ projects[<%= module_name %>][type] = theme
     <%- module_data.sort.each do |data_key, data_value| -%>
         <%- if data_key == 'version' -%>
 projects[<%= module_name %>][version] = <%= data_value %>
+        <%- elsif data_key == 'patch' -%>
+            <%- data_value.each do |patch_file| -%>
+projects[<%= module_name %>][patch][] = <%= patch_file %>
+            <%- end -%>
         <%- else -%>
 projects[<%= module_name %>][download][<%= data_key %>] = <%= data_value %>
         <%- end -%>

@@ -45,7 +45,13 @@ describe 'by default' do
             'url'      => 'git://git.drupal.org/project/ctools.git',
             'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945',
           },
-          'views' => '3.8',
+          'pathauto' => {
+            'version' => '1.2',
+            'patch'   => [
+              'https://www.drupal.org/files/pathauto_admin.patch'
+            ],
+          },
+          'views'    => '3.8',
         },
         themes       => {
           'omega' => '4.3',
@@ -123,6 +129,10 @@ describe 'by default' do
 
   describe file('/var/www/drupal-7.x/sites/all/modules/ctools/.git') do
     specify { should_not be_directory }
+  end
+
+  describe file('/var/www/drupal-7.x/sites/all/modules/pathauto/pathauto.admin.inc') do
+    its(:content) { should match /module_implements\('pathauto', false, true\);/ }
   end
 
   describe file('/var/www/drupal-7.x/sites/all/modules/views/views.info') do
