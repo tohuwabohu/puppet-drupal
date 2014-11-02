@@ -32,6 +32,11 @@ describe 'by default' do
       drupal::site { 'drupal-7.x':
         core_version => '7.32',
         modules      => {
+          'ctools'   => {
+            'type'     => 'git',
+            'url'      => 'git://git.drupal.org/project/ctools.git',
+            'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945'
+          },
           'views' => '3.8',
         },
       }
@@ -86,6 +91,14 @@ describe 'by default' do
 
   describe file('/var/www/drupal-7.x/modules/system/system.info') do
     its(:content) { should match /version = "7.32"/ }
+  end
+
+  describe file('/var/www/drupal-7.x/sites/all/modules/ctools/ctools.info') do
+    its(:content) { should match /name = Chaos tools/ }
+  end
+
+  describe file('/var/www/drupal-7.x/sites/all/modules/ctools/.git') do
+    specify { should_not be_directory }
   end
 
   describe file('/var/www/drupal-7.x/sites/all/modules/views/views.info') do

@@ -41,4 +41,20 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[url\] = http:\/\/example.com\/file.zip/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[md5\] = beef/) }
   end
+
+  describe 'with modules view from git repository' do
+    let(:view_module) do
+      {
+          'type'     => 'git',
+          'url'      => 'http://git.drupal.org/project/drupal.git',
+          'revision' => 'beef'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[type\] = module/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[type\] = git/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[revision\] = beef/) }
+  end
 end
