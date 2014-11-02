@@ -23,7 +23,7 @@ describe 'drupal::site' do
   describe 'with modules view' do
     let(:params) { {:core_version => '7.0', :modules => { 'views' => '3.8' } } }
 
-    specify { should contain_file(make_file).with_content(/projects\[views\] = 3\.8/) }
+    specify { should contain_file(make_file).with_content(/projects\[views\]\[version\] = 3\.8/) }
   end
 
   describe 'with modules view from custom location' do
@@ -61,7 +61,7 @@ describe 'drupal::site' do
   describe 'with theme zen from drupal.org' do
     let(:params) { {:core_version => '7.0', :themes => { 'zen' => '5.5' } } }
 
-    specify { should contain_file(make_file).with_content(/projects\[zen\] = 5\.5/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[version\] = 5\.5/) }
   end
 
   describe 'with theme zen from custom location' do

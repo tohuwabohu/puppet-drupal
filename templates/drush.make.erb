@@ -1,3 +1,15 @@
+<%-
+  # normalize the hashes and unwrap the shorthand notions
+  normalized_modules = @modules.inject({}) do |result, (key, value)|
+    result[key] = value.is_a?(String) ? { 'version' => value } : value
+    result
+  end
+  normalized_themes = @themes.inject({}) do |result, (key, value)|
+    result[key] = value.is_a?(String) ? { 'version' => value } : value
+    result
+  end
+-%>
+
 ; Managed by Puppet
 
 ; API
@@ -8,27 +20,25 @@ core = <%= @core_major_version %>.x
 projects[drupal] = <%= @core_version %>
 
 ; Modules
-<%- @modules.sort.each do |key, version| -%>
-  <%- if version.is_a?(String) -%>
-projects[<%= key %>] = <%= version %>
-  <%- elsif version.is_a?(Hash) -%>
-projects[<%= key %>][type] = module
-    <%- version.sort.each do |version_key, version_value| -%>
-projects[<%= key %>][download][<%= version_key %>] = <%= version_value %>
+<%- normalized_modules.sort.each do |module_name, module_data| -%>
+projects[<%= module_name %>][type] = module
+    <%- module_data.sort.each do |data_key, data_value| -%>
+        <%- if data_key == 'version' -%>
+projects[<%= module_name %>][version] = <%= data_value %>
+        <%- else -%>
+projects[<%= module_name %>][download][<%= data_key %>] = <%= data_value %>
+        <%- end -%>
     <%- end -%>
-  <%- else -%>
-  <%- end -%>
 <%- end -%>
 
 ; Themes
-<%- @themes.sort.each do |key, version| -%>
-  <%- if version.is_a?(String) -%>
-projects[<%= key %>] = <%= version %>
-  <%- elsif version.is_a?(Hash) -%>
-projects[<%= key %>][type] = theme
-    <%- version.sort.each do |version_key, version_value| -%>
-projects[<%= key %>][download][<%= version_key %>] = <%= version_value %>
+<%- normalized_themes.sort.each do |module_name, module_data| -%>
+projects[<%= module_name %>][type] = theme
+    <%- module_data.sort.each do |data_key, data_value| -%>
+        <%- if data_key == 'version' -%>
+projects[<%= module_name %>][version] = <%= data_value %>
+        <%- else -%>
+projects[<%= module_name %>][download][<%= data_key %>] = <%= data_value %>
+        <%- end -%>
     <%- end -%>
-  <%- else -%>
-  <%- end -%>
 <%- end -%>
