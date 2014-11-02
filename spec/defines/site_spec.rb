@@ -71,7 +71,7 @@ describe 'drupal::site' do
   end
 
   describe 'with theme zen from drupal.org' do
-    let(:params) { {:core_version => '7.0', :themes => { 'zen' => { 'version' => '5.5' } } }
+    let(:params) { {:core_version => '7.0', :themes => { 'zen' => { 'version' => '5.5' } } } }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[version\] = 5\.5/) }
   end
