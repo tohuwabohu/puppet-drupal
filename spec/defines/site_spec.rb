@@ -57,4 +57,42 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[revision\] = beef/) }
   end
+
+  describe 'with theme zen from drupal.org' do
+    let(:params) { {:core_version => '7.0', :themes => { 'zen' => '5.5' } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[zen\] = 5\.5/) }
+  end
+
+  describe 'with theme zen from custom location' do
+    let(:zen_theme) do
+      {
+          'type' => 'file',
+          'url'  => 'http://example.com/file.zip',
+          'md5'  => 'beef'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[type\] = theme/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = file/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[url\] = http:\/\/example.com\/file.zip/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[md5\] = beef/) }
+  end
+
+  describe 'with theme zen from git repository' do
+    let(:zen_theme) do
+      {
+          'type'     => 'git',
+          'url'      => 'http://git.drupal.org/project/drupal.git',
+          'revision' => 'beef'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
+
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[type\] = theme/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = git/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
+    specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[revision\] = beef/) }
+  end
 end

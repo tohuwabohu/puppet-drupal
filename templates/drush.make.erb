@@ -7,12 +7,25 @@ api = 2
 core = <%= @core_major_version %>.x
 projects[drupal] = <%= @core_version %>
 
-; Contrib modules
+; Modules
 <%- @modules.sort.each do |key, version| -%>
   <%- if version.is_a?(String) -%>
 projects[<%= key %>] = <%= version %>
   <%- elsif version.is_a?(Hash) -%>
 projects[<%= key %>][type] = module
+    <%- version.sort.each do |version_key, version_value| -%>
+projects[<%= key %>][download][<%= version_key %>] = <%= version_value %>
+    <%- end -%>
+  <%- else -%>
+  <%- end -%>
+<%- end -%>
+
+; Themes
+<%- @themes.sort.each do |key, version| -%>
+  <%- if version.is_a?(String) -%>
+projects[<%= key %>] = <%= version %>
+  <%- elsif version.is_a?(Hash) -%>
+projects[<%= key %>][type] = theme
     <%- version.sort.each do |version_key, version_value| -%>
 projects[<%= key %>][download][<%= version_key %>] = <%= version_value %>
     <%- end -%>

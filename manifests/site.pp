@@ -20,7 +20,8 @@
 #
 define drupal::site (
   $core_version,
-  $modules       = {},
+  $modules      = {},
+  $themes       = {},
 ) {
 
   require drupal

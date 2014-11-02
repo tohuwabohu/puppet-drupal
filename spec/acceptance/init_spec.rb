@@ -23,9 +23,17 @@ describe 'by default' do
           'cck'   => {
             'type' => 'file',
             'url'  => 'http://ftp.drupal.org/files/projects/cck-6.x-2.9.tar.gz',
-            'md5'  => '9e30f22592b7ecf08d020e0c626efc5b'
+            'md5'  => '9e30f22592b7ecf08d020e0c626efc5b',
           },
           'views' => '2.16',
+        },
+        themes       => {
+          'marinelli' => {
+            'type'     => 'git',
+            'url'      => 'git://git.drupal.org/project/marinelli.git',
+            'revision' => 'fef7745f64541cbe8c746167d3fe37dca133b87b',
+          },
+          'zen'   => '2.1',
         },
       }
 
@@ -35,9 +43,17 @@ describe 'by default' do
           'ctools'   => {
             'type'     => 'git',
             'url'      => 'git://git.drupal.org/project/ctools.git',
-            'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945'
+            'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945',
           },
           'views' => '3.8',
+        },
+        themes       => {
+          'omega' => '4.3',
+          'zen'   => {
+            'type' => 'file',
+            'url'  => 'http://ftp.drupal.org/files/projects/zen-7.x-5.5.tar.gz',
+            'md5'  => '9ca3c99dedec9bfb1cc73b360990dad9',
+          },
         },
       }
     EOS
@@ -85,6 +101,14 @@ describe 'by default' do
     its(:content) { should match /version = "6.x-2.16"/ }
   end
 
+  describe file('/var/www/drupal-6.x/sites/all/themes/marinelli/marinelli.info') do
+    its(:content) { should match /version = "6.x-1.7"/ }
+  end
+
+  describe file('/var/www/drupal-6.x/sites/all/themes/zen/zen.info') do
+    its(:content) { should match /version = "6.x-2.1"/ }
+  end
+
   describe file('/var/www/drupal-7.x') do
     specify { should be_directory }
   end
@@ -103,5 +127,13 @@ describe 'by default' do
 
   describe file('/var/www/drupal-7.x/sites/all/modules/views/views.info') do
     its(:content) { should match /version = "7.x-3.8"/ }
+  end
+
+  describe file('/var/www/drupal-7.x/sites/all/themes/omega/omega/omega.info') do
+    its(:content) { should match /version = "7.x-4.3"/ }
+  end
+
+  describe file('/var/www/drupal-7.x/sites/all/themes/zen/zen.info') do
+    its(:content) { should match /version = "7.x-5.5"/ }
   end
 end
