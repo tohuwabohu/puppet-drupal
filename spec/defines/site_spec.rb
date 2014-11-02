@@ -35,9 +35,9 @@ describe 'drupal::site' do
   describe 'with modules view from custom location' do
     let(:view_module) do
       {
-          'type' => 'file',
-          'url'  => 'http://example.com/file.zip',
-          'md5'  => 'beef'
+        'type' => 'file',
+        'url'  => 'http://example.com/file.zip',
+        'md5'  => 'beef'
       }
     end
     let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
@@ -51,9 +51,9 @@ describe 'drupal::site' do
   describe 'with modules view from git repository' do
     let(:view_module) do
       {
-          'type'     => 'git',
-          'url'      => 'http://git.drupal.org/project/drupal.git',
-          'revision' => 'beef'
+        'type'     => 'git',
+        'url'      => 'http://git.drupal.org/project/drupal.git',
+        'revision' => 'beef'
       }
     end
     let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
@@ -95,9 +95,9 @@ describe 'drupal::site' do
   describe 'with theme zen from custom location' do
     let(:zen_theme) do
       {
-          'type' => 'file',
-          'url'  => 'http://example.com/file.zip',
-          'md5'  => 'beef'
+        'type' => 'file',
+        'url'  => 'http://example.com/file.zip',
+        'md5'  => 'beef'
       }
     end
     let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
@@ -111,9 +111,9 @@ describe 'drupal::site' do
   describe 'with theme zen from git repository' do
     let(:zen_theme) do
       {
-          'type'     => 'git',
-          'url'      => 'http://git.drupal.org/project/drupal.git',
-          'revision' => 'beef'
+        'type'     => 'git',
+        'url'      => 'http://git.drupal.org/project/drupal.git',
+        'revision' => 'beef'
       }
     end
     let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
