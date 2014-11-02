@@ -41,13 +41,12 @@ define drupal::site (
     owner   => 'root',
     group   => 'root',
     mode    => '0444',
+    notify  => Exec["rebuild-drupal-${title}"],
   }
 
   exec { "rebuild-drupal-${title}":
     command     => "${drupal::drush_executable} make ${config_file} ${site_file}",
     creates     => $site_file,
-    refreshonly => true,
-    subscribe   => File[$config_file],
     require     => File[$drupal::drush_executable],
   }
 
