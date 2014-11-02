@@ -14,7 +14,8 @@
 #   Set themes to be installed along with the core (optional). See the README file for examples.
 #
 # [*makefile_content*]
-#   Set content of the makefile to be used.
+#   Set content of the makefile to be used (optional). Other parameters used to generate a makefile (`core_version`,
+#   `modules` and `themes`) are ignored when this one is used..
 #
 # [*document_root*]
 #   Set the path to the document root. This will result in a symbolic link pointing to a directory containing all
