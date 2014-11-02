@@ -14,6 +14,9 @@
 # [*config_dir*]
 #   Set the root directory where the generated drush makefiles are stored.
 #
+# [*log_dir*]
+#   Set the root directory where the write output of the drush command to.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -26,28 +29,16 @@ class drupal (
   $package_dir = $drupal::params::package_dir,
   $install_dir = $drupal::params::install_dir,
   $config_dir  = $drupal::params::config_dir,
+  $log_dir     = $drupal::params::log_dir,
 ) inherits drupal::params {
 
   validate_absolute_path($package_dir)
   validate_absolute_path($install_dir)
   validate_absolute_path($config_dir)
+  validate_absolute_path($log_dir)
 
   $drush_dir = "${drupal::install_dir}/drush"
   $drush_executable = '/usr/local/bin/drush'
-
-  file { $install_dir:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
-
-  file { $config_dir:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
 
   class { 'drupal::install': }
 }

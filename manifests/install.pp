@@ -18,6 +18,27 @@ class drupal::install inherits drupal {
     default => '/usr/local/bin'
   }
 
+  file { $drupal::install_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+  file { $drupal::config_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+  file { $drupal::log_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
   exec { 'install-composer':
     command => "/usr/bin/curl -sS ${composer_installer_url} | /usr/bin/php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=${composer_exec_filename}",
     creates => "${composer_install_dir}/${composer_exec_filename}",

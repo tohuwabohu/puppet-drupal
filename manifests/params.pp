@@ -22,4 +22,8 @@ class drupal::params {
   $config_dir = $::osfamily ? {
     default => '/etc/drupal'
   }
+
+  $log_dir = $::osfamily ? {
+    default => '/var/log/drush'
+  }
 }

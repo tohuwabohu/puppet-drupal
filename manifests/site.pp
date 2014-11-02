@@ -45,7 +45,7 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command     => "${drupal::drush_executable} make ${config_file} ${site_file}",
+    command     => "${drupal::drush_executable} make -v ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1",
     creates     => $site_file,
     require     => File[$drupal::drush_executable],
   }
