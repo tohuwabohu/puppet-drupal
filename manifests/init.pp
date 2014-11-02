@@ -4,10 +4,6 @@
 #
 # === Parameters
 #
-# [*package_dir*]
-#   Set the directory where all downloaded packages are stored.
-#   Note: as this directory can be shared with other modules, it is not managed.
-#
 # [*install_dir*]
 #   Set the root directory where the Drupal core and its modules are installed.
 #
@@ -30,14 +26,12 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal (
-  $package_dir = $drupal::params::package_dir,
   $install_dir = $drupal::params::install_dir,
   $config_dir  = $drupal::params::config_dir,
   $log_dir     = $drupal::params::log_dir,
   $www_dir     = $drupal::params::www_dir,
 ) inherits drupal::params {
 
-  validate_absolute_path($package_dir)
   validate_absolute_path($install_dir)
   validate_absolute_path($config_dir)
   validate_absolute_path($log_dir)

@@ -11,10 +11,6 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal::params {
-  $package_dir = $::osfamily ? {
-    default => '/var/cache/puppet/archives',
-  }
-
   $install_dir = $::osfamily ? {
     default => '/opt/drupal.org',
   }
