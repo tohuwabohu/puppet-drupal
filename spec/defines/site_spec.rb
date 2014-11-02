@@ -139,4 +139,15 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = \/path\/to\/patch/) }
   end
+
+  describe 'with custom makefile' do
+    let(:custom_makefile) do
+      "core = 7.x
+       api = 2
+       projects[] = drupal"
+    end
+    let(:params) { {:makefile_content => custom_makefile } }
+
+    specify { should contain_file(make_file).with_content(custom_makefile) }
+  end
 end
