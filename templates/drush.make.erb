@@ -17,7 +17,7 @@ api = 2
 
 ; Core
 core = <%= @core_major_version %>.x
-projects[drupal] = <%= @core_version %>
+projects[drupal][version] = <%= @core_version %>
 
 ; Modules
 <%- normalized_modules.sort.each do |module_name, module_data| -%>
