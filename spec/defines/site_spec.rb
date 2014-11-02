@@ -26,7 +26,7 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[views\] = 3\.8/) }
   end
 
-  describe 'with modules view ' do
+  describe 'with modules view from custom location' do
     let(:view_module) do
       {
           'type' => 'file',
