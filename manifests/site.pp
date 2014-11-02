@@ -49,7 +49,7 @@ define drupal::site (
     $real_makefile_content = $makefile_content
   }
 
-  $makefile_md5 = md5($makefile_content)
+  $makefile_md5 = md5($real_makefile_content)
   $config_file = "${drupal::config_dir}/${title}.make"
   $site_file = "${drupal::install_dir}/${title}-${makefile_md5}"
 
