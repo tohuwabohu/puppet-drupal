@@ -21,6 +21,9 @@
 #   Set the path to the document root. This will result in a symbolic link pointing to a directory containing all
 #   modules and themes as configured.
 #
+# [*timeout*]
+#   Set the timeout in seconds of the rebuild site command.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -35,6 +38,7 @@ define drupal::site (
   $themes           = {},
   $makefile_content = undef,
   $document_root    = undef,
+  $timeout          = undef,
 ) {
 
   require drupal
@@ -66,6 +70,7 @@ define drupal::site (
   exec { "rebuild-drupal-${title}":
     command => "${drupal::drush_executable} make -v ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1",
     creates => $site_file,
+    timeout => $timeout,
     require => File[$drupal::drush_executable],
   }
 
