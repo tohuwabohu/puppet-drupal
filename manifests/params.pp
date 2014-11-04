@@ -30,4 +30,6 @@ class drupal::params {
   $exec_paths = $::osfamily ? {
     default => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
   }
+
+  $drush_concurrency_level = 1
 }

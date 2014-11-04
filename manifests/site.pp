@@ -75,7 +75,7 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command => "${drupal::drush_executable} make -v ${config_file} ${temp_file} >> ${drupal::log_dir}/${title}.log 2>&1 || rm -rf ${temp_file} && exit 99",
+    command => "${drupal::drush_executable} make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${temp_file} >> ${drupal::log_dir}/${title}.log 2>&1 || rm -rf ${temp_file} && exit 99",
     creates => $site_file,
     timeout => $timeout,
     path    => $drupal::exec_paths,

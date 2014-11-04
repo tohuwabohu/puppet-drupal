@@ -20,6 +20,9 @@
 # [*exec_paths*]
 #   Set the paths used to search for executables when invoking exec resources.
 #
+# [*drush_concurrency_level*]
+#   Set the number of concurrent projects that will be processed at the same time.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -29,11 +32,12 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal (
-  $install_dir = $drupal::params::install_dir,
-  $config_dir  = $drupal::params::config_dir,
-  $log_dir     = $drupal::params::log_dir,
-  $www_dir     = $drupal::params::www_dir,
-  $exec_paths  = $drupal::params::exec_paths,
+  $install_dir             = $drupal::params::install_dir,
+  $config_dir              = $drupal::params::config_dir,
+  $log_dir                 = $drupal::params::log_dir,
+  $www_dir                 = $drupal::params::www_dir,
+  $exec_paths              = $drupal::params::exec_paths,
+  $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {
 
   validate_absolute_path($install_dir)
