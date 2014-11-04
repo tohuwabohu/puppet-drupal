@@ -7,6 +7,7 @@ unless ENV['BEAKER_PROVISION'] == 'no'
     install_package host, 'curl'
     install_package host, 'git'
     install_package host, 'php5-cli'
+    install_package host, 'unzip'
   end
 end
 

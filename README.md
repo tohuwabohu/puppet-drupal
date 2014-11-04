@@ -21,6 +21,8 @@ drupal::site { 'example.com':
 }
 ```
 
+TODO: add a note about required tools to handle compressed archives like unzip
+
 
 ##Limitations
 

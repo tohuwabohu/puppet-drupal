@@ -13,6 +13,9 @@
 # [*themes*]
 #   Set themes to be installed along with the core (optional). See the README file for examples.
 #
+# [*libraries*]
+#   Set libraries to be installed (optional). See the README file for examples.
+#
 # [*makefile_content*]
 #   Set content of the makefile to be used (optional). Other parameters used to generate a makefile (`core_version`,
 #   `modules` and `themes`) are ignored when this one is used..
@@ -36,6 +39,7 @@ define drupal::site (
   $core_version     = undef,
   $modules          = {},
   $themes           = {},
+  $libraries        = {},
   $makefile_content = undef,
   $document_root    = undef,
   $timeout          = undef,

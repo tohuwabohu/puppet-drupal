@@ -4,18 +4,12 @@ describe 'by default' do
   specify 'should provision with no errors' do
     pp = <<-EOS
       # just a bunch of dependencies
-      file { '/var/cache/packages':
-        ensure => directory,
-      }
-
       file { '/var/www':
         ensure => directory,
       }
 
       # test manifest
-      class { 'drupal':
-        package_dir => '/var/cache/packages',
-      }
+      class { 'drupal': }
 
       drupal::site { 'drupal-6.x':
         core_version => '6.33',
@@ -59,6 +53,13 @@ describe 'by default' do
             'type' => 'file',
             'url'  => 'http://ftp.drupal.org/files/projects/zen-7.x-5.5.tar.gz',
             'md5'  => '9ca3c99dedec9bfb1cc73b360990dad9',
+          },
+        },
+        libraries    => {
+          'jquery_ui' => {
+            'type' => 'file',
+            'url'  => 'http://jquery-ui.googlecode.com/files/jquery.ui-1.6.zip',
+            'md5'  => 'c177d38bc7af59d696b2efd7dda5c605',
           },
         },
       }
@@ -145,5 +146,9 @@ describe 'by default' do
 
   describe file('/var/www/drupal-7.x/sites/all/themes/zen/zen.info') do
     its(:content) { should match /version = "7.x-5.5"/ }
+  end
+
+  describe file('/var/www/drupal-7.x/sites/all/libraries/jquery_ui/jquery-1.2.6.js') do
+    specify { should be_file }
   end
 end

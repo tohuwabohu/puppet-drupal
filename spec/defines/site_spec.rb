@@ -124,7 +124,7 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[revision\] = beef/) }
   end
 
-  describe 'with patches for a module' do
+  describe 'with patches for a theme' do
     let(:zen_theme) do
       {
         'version' => '1.0',
@@ -138,6 +138,64 @@ describe 'drupal::site' do
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = \/path\/to\/patch/) }
+  end
+
+  describe 'with library jquery_ui from drupal.org (shorthand notion)' do
+    let(:params) { {:core_version => '7.0', :libraries => { 'jquery_ui' => '5.5' } } }
+
+    specify { should contain_file(make_file).with_content(/libraries\[jquery_ui\]\[version\] = 5\.5/) }
+  end
+
+  describe 'with library jquery_ui from drupal.org' do
+    let(:params) { {:core_version => '7.0', :libraries => { 'jquery_ui' => { 'version' => '5.5' } } } }
+
+    specify { should contain_file(make_file).with_content(/libraries\[jquery_ui\]\[version\] = 5\.5/) }
+  end
+
+  describe 'with a library from a custom location' do
+    let(:some_library) do
+      {
+        'type' => 'file',
+        'url'  => 'http://example.com/file.zip',
+        'md5'  => 'beef'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[type\] = file/) }
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[url\] = http:\/\/example.com\/file.zip/) }
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[md5\] = beef/) }
+  end
+
+  describe 'with a library from a git repository' do
+    let(:some_library) do
+      {
+        'type'     => 'git',
+        'url'      => 'http://git.drupal.org/project/drupal.git',
+        'revision' => 'beef'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[type\] = git/) }
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[revision\] = beef/) }
+  end
+
+  describe 'with patches for a library' do
+    let(:some_library) do
+      {
+        'version' => '1.0',
+        'patch'   => [
+          'http://example.com/first.patch',
+          '/path/to/patch'
+        ]
+      }
+    end
+    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[patch\]\[\] = \/path\/to\/patch/) }
   end
 
   describe 'with custom makefile' do
