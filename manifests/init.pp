@@ -17,6 +17,9 @@
 #   Set the root directory where to create the document root for all managed Drupal sites.
 #   Note: as this directory can be shared with other modules, it is not managed.
 #
+# [*exec_paths*]
+#   Set the paths used to search for executables when invoking exec resources.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -30,6 +33,7 @@ class drupal (
   $config_dir  = $drupal::params::config_dir,
   $log_dir     = $drupal::params::log_dir,
   $www_dir     = $drupal::params::www_dir,
+  $exec_paths  = $drupal::params::exec_paths,
 ) inherits drupal::params {
 
   validate_absolute_path($install_dir)

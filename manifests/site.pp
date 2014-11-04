@@ -61,6 +61,9 @@ define drupal::site (
   $makefile_md5 = md5($real_makefile_content)
   $config_file = "${drupal::config_dir}/${title}.make"
   $site_file = "${drupal::install_dir}/${title}-${makefile_md5}"
+  $now = time()
+  $temp_file = "/tmp/drush-${title}-${now}"
+
 
   file { $config_file:
     ensure  => file,
@@ -72,10 +75,18 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command => "${drupal::drush_executable} make -v ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1",
+    command => "${drupal::drush_executable} make -v ${config_file} ${temp_file} >> ${drupal::log_dir}/${title}.log 2>&1 || rm -rf ${temp_file} && exit 99",
     creates => $site_file,
     timeout => $timeout,
+    path    => $drupal::exec_paths,
     require => File[$drupal::drush_executable],
+  }
+
+  exec { "move-temporary-drupal-${title}":
+    command => "mv ${temp_file} ${site_file}",
+    creates => $site_file,
+    path    => $drupal::exec_paths,
+    require => Exec["rebuild-drupal-${title}"],
   }
 
   file { $real_document_root:

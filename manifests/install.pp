@@ -40,8 +40,9 @@ class drupal::install inherits drupal {
   }
 
   exec { 'install-composer':
-    command => "/usr/bin/curl -sS ${composer_installer_url} | /usr/bin/php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=${composer_exec_filename}",
+    command => "curl -sS ${composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=${composer_exec_filename}",
     creates => "${composer_install_dir}/${composer_exec_filename}",
+    path    => $drupal::exec_paths,
   }
 
   vcsrepo { $drupal::drush_dir:
