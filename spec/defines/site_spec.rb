@@ -198,6 +198,20 @@ describe 'drupal::site' do
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[patch\]\[\] = \/path\/to\/patch/) }
   end
 
+  describe 'with custom destination for a library' do
+    let(:some_library) do
+      {
+        'type'        => 'file',
+        'url'         => 'http://example.com/file.zip',
+        'md5'         => 'beef',
+        'destination' => 'modules/contrib/project'
+      }
+    end
+    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+
+    specify { should contain_file(make_file).with_content(/libraries\[lib\]\[destination\] = modules\/contrib\/project/) }
+  end
+
   describe 'with custom makefile' do
     let(:custom_makefile) do
       "core = 7.x
