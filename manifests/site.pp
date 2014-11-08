@@ -16,6 +16,16 @@
 # [*libraries*]
 #   Set libraries to be installed (optional). See the README file for examples.
 #
+# [*settings_content*]
+#   Set the content of the `settings.php`.
+#
+# [*files_target*]
+#   Set the target of the `files` directory.
+#
+# [*files_manage*]
+#   Set to `true` to manage the `files` directory of a Drupal site kept outside of the actual Drupal installation. Set
+#   to `false` if the directory is already managed somewhere else.
+#
 # [*makefile_content*]
 #   Set content of the makefile to be used (optional). Other parameters used to generate a makefile (`core_version`,
 #   `modules` and `themes`) are ignored when this one is used..
@@ -40,6 +50,9 @@ define drupal::site (
   $modules          = {},
   $themes           = {},
   $libraries        = {},
+  $settings_content = undef,
+  $files_target     = undef,
+  $files_manage     = true,
   $makefile_content = undef,
   $document_root    = undef,
   $timeout          = undef,
@@ -49,6 +62,10 @@ define drupal::site (
 
   $real_document_root = pick($document_root, "${drupal::www_dir}/${title}")
   validate_absolute_path($real_document_root)
+
+  # TODO: default data location should be configurable
+  $real_files_target = pick($files_target, "/var/lib/${title}")
+  validate_absolute_path($real_files_target)
 
   if empty($makefile_content) {
     $core_major_version = regsubst($core_version, '(\d+).(\d+)$', '\1', 'I')
@@ -83,5 +100,21 @@ define drupal::site (
   file { $real_document_root:
     ensure => link,
     target => $site_file,
+  }
+
+  if $files_manage {
+    # TODO: owner and group should be configurable
+    file { $real_files_target:
+      ensure => directory,
+      owner  => 'www-data',
+      group  => 'www-data',
+      mode   => '755',
+    }
+  }
+
+  file { "${site_file}/files":
+    ensure  => link,
+    target  => $real_files_target,
+    require => Exec["rebuild-drupal-${title}"],
   }
 }

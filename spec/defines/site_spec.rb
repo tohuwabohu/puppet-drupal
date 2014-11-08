@@ -3,9 +3,14 @@ require 'spec_helper'
 describe 'drupal::site' do
   let(:title) { 'dummy' }
   let(:make_file) { '/etc/drupal/dummy.make' }
+  let(:defaults) do
+    {
+        :core_version => '7.0'
+    }
+  end
 
   describe 'with core_version => 6.33' do
-    let(:params) { {:core_version => '6.33'} }
+    let(:params) { defaults.merge(:core_version => '6.33') }
 
     specify { should contain_file(make_file).with_ensure('file') }
     specify { should contain_file(make_file).with_content(/core = 6.x/) }
@@ -13,7 +18,7 @@ describe 'drupal::site' do
   end
 
   describe 'with core_version => 7.32' do
-    let(:params) { {:core_version => '7.32'} }
+    let(:params) { defaults.merge(:core_version => '7.32') }
 
     specify { should contain_file(make_file).with_ensure('file') }
     specify { should contain_file(make_file).with_content(/core = 7.x/) }
@@ -21,13 +26,13 @@ describe 'drupal::site' do
   end
 
   describe 'with modules view from drupal.org (shorthand notion)' do
-    let(:params) { {:core_version => '7.0', :modules => { 'views' => '3.8' } } }
+    let(:params) { defaults.merge(:modules => { 'views' => '3.8' }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[version\] = 3\.8/) }
   end
 
   describe 'with modules view from drupal.org' do
-    let(:params) { {:core_version => '7.0', :modules => { 'views' => { 'version' => '3.8'} } } }
+    let(:params) { defaults.merge(:modules => { 'views' => { 'version' => '3.8'} }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[version\] = 3\.8/) }
   end
@@ -40,7 +45,7 @@ describe 'drupal::site' do
         'md5'  => 'beef'
       }
     end
-    let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
+    let(:params) { defaults.merge(:modules => { 'views' => view_module }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[type\] = module/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[type\] = file/) }
@@ -56,7 +61,7 @@ describe 'drupal::site' do
         'revision' => 'beef'
       }
     end
-    let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
+    let(:params) { defaults.merge(:modules => { 'views' => view_module }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[type\] = module/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[type\] = git/) }
@@ -74,20 +79,20 @@ describe 'drupal::site' do
         ]
       }
     end
-    let(:params) { {:core_version => '7.0', :modules => { 'views' => view_module } } }
+    let(:params) { defaults.merge(:modules => { 'views' => view_module }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[patch\]\[\] = \/path\/to\/patch/) }
   end
 
   describe 'with theme zen from drupal.org (shorthand notion)' do
-    let(:params) { {:core_version => '7.0', :themes => { 'zen' => '5.5' } } }
+    let(:params) { defaults.merge(:themes => { 'zen' => '5.5' }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[version\] = 5\.5/) }
   end
 
   describe 'with theme zen from drupal.org' do
-    let(:params) { {:core_version => '7.0', :themes => { 'zen' => { 'version' => '5.5' } } } }
+    let(:params) { defaults.merge(:themes => { 'zen' => { 'version' => '5.5' } }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[version\] = 5\.5/) }
   end
@@ -100,7 +105,7 @@ describe 'drupal::site' do
         'md5'  => 'beef'
       }
     end
-    let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
+    let(:params) { defaults.merge(:themes => { 'zen' => zen_theme }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[type\] = theme/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = file/) }
@@ -116,7 +121,7 @@ describe 'drupal::site' do
         'revision' => 'beef'
       }
     end
-    let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
+    let(:params) { defaults.merge(:themes => { 'zen' => zen_theme }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[type\] = theme/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = git/) }
@@ -134,20 +139,20 @@ describe 'drupal::site' do
         ]
       }
     end
-    let(:params) { {:core_version => '7.0', :themes => { 'zen' => zen_theme } } }
+    let(:params) { defaults.merge(:themes => { 'zen' => zen_theme }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[patch\]\[\] = \/path\/to\/patch/) }
   end
 
   describe 'with library jquery_ui from drupal.org (shorthand notion)' do
-    let(:params) { {:core_version => '7.0', :libraries => { 'jquery_ui' => '5.5' } } }
+    let(:params) { defaults.merge(:libraries => { 'jquery_ui' => '5.5' }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[jquery_ui\]\[version\] = 5\.5/) }
   end
 
   describe 'with library jquery_ui from drupal.org' do
-    let(:params) { {:core_version => '7.0', :libraries => { 'jquery_ui' => { 'version' => '5.5' } } } }
+    let(:params) { defaults.merge(:libraries => { 'jquery_ui' => { 'version' => '5.5' } }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[jquery_ui\]\[version\] = 5\.5/) }
   end
@@ -160,7 +165,7 @@ describe 'drupal::site' do
         'md5'  => 'beef'
       }
     end
-    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+    let(:params) { defaults.merge(:libraries => { 'lib' => some_library }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[type\] = file/) }
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[url\] = http:\/\/example.com\/file.zip/) }
@@ -175,7 +180,7 @@ describe 'drupal::site' do
         'revision' => 'beef'
       }
     end
-    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+    let(:params) { defaults.merge(:libraries => { 'lib' => some_library }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[type\] = git/) }
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
@@ -192,7 +197,7 @@ describe 'drupal::site' do
         ]
       }
     end
-    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+    let(:params) { defaults.merge(:libraries => { 'lib' => some_library }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[patch\]\[\] = http:\/\/example.com\/first.patch/) }
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[patch\]\[\] = \/path\/to\/patch/) }
@@ -207,7 +212,7 @@ describe 'drupal::site' do
         'destination' => 'modules/contrib/project'
       }
     end
-    let(:params) { {:core_version => '7.0', :libraries => { 'lib' => some_library } } }
+    let(:params) { defaults.merge(:libraries => { 'lib' => some_library }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[destination\] = modules\/contrib\/project/) }
   end
