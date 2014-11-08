@@ -75,10 +75,10 @@ define drupal::site (
     $real_makefile_content = $makefile_content
   }
 
-  $makefile_md5 = md5($real_makefile_content)
+  $makefile_sha1 = sha1($real_makefile_content)
   $config_file = "${drupal::config_dir}/${title}.make"
   # TODO: rename me
-  $site_file = "${drupal::install_dir}/${title}-${makefile_md5}"
+  $site_file = "${drupal::install_dir}/${title}-${makefile_sha1}"
 
   file { $config_file:
     ensure  => file,
