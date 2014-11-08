@@ -57,7 +57,6 @@ projects[<%= module_name %>][download][<%= data_key %>] = <%= data_value %>
 
 ; Libraries
 <%- normalized_libraries.sort.each do |library_name, library_data| -%>
-projects[<%= library_name %>][type] = theme
     <%- library_data.sort.each do |data_key, data_value| -%>
         <%- if data_key == 'version' -%>
 libraries[<%= library_name %>][version] = <%= data_value %>
