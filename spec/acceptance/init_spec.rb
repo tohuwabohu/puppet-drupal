@@ -15,17 +15,21 @@ describe 'by default' do
         core_version => '6.33',
         modules      => {
           'cck'   => {
-            'type' => 'file',
-            'url'  => 'http://ftp.drupal.org/files/projects/cck-6.x-2.9.tar.gz',
-            'md5'  => '9e30f22592b7ecf08d020e0c626efc5b',
+            'download' => {
+              'type' => 'file',
+              'url'  => 'http://ftp.drupal.org/files/projects/cck-6.x-2.9.tar.gz',
+              'md5'  => '9e30f22592b7ecf08d020e0c626efc5b',
+            },
           },
           'views' => '2.16',
         },
         themes       => {
           'marinelli' => {
-            'type'     => 'git',
-            'url'      => 'git://git.drupal.org/project/marinelli.git',
-            'revision' => 'fef7745f64541cbe8c746167d3fe37dca133b87b',
+            'download' => {
+              'type'     => 'git',
+              'url'      => 'git://git.drupal.org/project/marinelli.git',
+              'revision' => 'fef7745f64541cbe8c746167d3fe37dca133b87b',
+            },
           },
           'zen'   => '2.1',
         },
@@ -35,9 +39,11 @@ describe 'by default' do
         core_version => '7.32',
         modules      => {
           'ctools'   => {
-            'type'     => 'git',
-            'url'      => 'git://git.drupal.org/project/ctools.git',
-            'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945',
+            'download' => {
+              'type'     => 'git',
+              'url'      => 'git://git.drupal.org/project/ctools.git',
+              'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945',
+            },
           },
           'pathauto' => {
             'version' => '1.2',
@@ -50,16 +56,20 @@ describe 'by default' do
         themes       => {
           'omega' => '4.3',
           'zen'   => {
-            'type' => 'file',
-            'url'  => 'http://ftp.drupal.org/files/projects/zen-7.x-5.5.tar.gz',
-            'md5'  => '9ca3c99dedec9bfb1cc73b360990dad9',
+            'download' => {
+              'type' => 'file',
+              'url'  => 'http://ftp.drupal.org/files/projects/zen-7.x-5.5.tar.gz',
+              'md5'  => '9ca3c99dedec9bfb1cc73b360990dad9',
+            },
           },
         },
         libraries    => {
           'jquery_ui' => {
-            'type' => 'file',
-            'url'  => 'http://jquery-ui.googlecode.com/files/jquery.ui-1.6.zip',
-            'md5'  => 'c177d38bc7af59d696b2efd7dda5c605',
+            'download' => {
+              'type' => 'file',
+              'url'  => 'http://jquery-ui.googlecode.com/files/jquery.ui-1.6.zip',
+              'md5'  => 'c177d38bc7af59d696b2efd7dda5c605',
+            },
           },
         },
       }

@@ -45,7 +45,7 @@ describe 'drupal::site' do
         'md5'  => 'beef'
       }
     end
-    let(:params) { defaults.merge(:modules => { 'views' => view_module }) }
+    let(:params) { defaults.merge(:modules => { 'views' => { 'download' => view_module } }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[type\] = module/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[type\] = file/) }
@@ -61,7 +61,7 @@ describe 'drupal::site' do
         'revision' => 'beef'
       }
     end
-    let(:params) { defaults.merge(:modules => { 'views' => view_module }) }
+    let(:params) { defaults.merge(:modules => { 'views' => { 'download' => view_module } }) }
 
     specify { should contain_file(make_file).with_content(/projects\[views\]\[type\] = module/) }
     specify { should contain_file(make_file).with_content(/projects\[views\]\[download\]\[type\] = git/) }
@@ -105,7 +105,7 @@ describe 'drupal::site' do
         'md5'  => 'beef'
       }
     end
-    let(:params) { defaults.merge(:themes => { 'zen' => zen_theme }) }
+    let(:params) { defaults.merge(:themes => { 'zen' => { 'download' => zen_theme } }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[type\] = theme/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = file/) }
@@ -121,7 +121,7 @@ describe 'drupal::site' do
         'revision' => 'beef'
       }
     end
-    let(:params) { defaults.merge(:themes => { 'zen' => zen_theme }) }
+    let(:params) { defaults.merge(:themes => { 'zen' => { 'download' => zen_theme } }) }
 
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[type\] = theme/) }
     specify { should contain_file(make_file).with_content(/projects\[zen\]\[download\]\[type\] = git/) }
@@ -165,7 +165,7 @@ describe 'drupal::site' do
         'md5'  => 'beef'
       }
     end
-    let(:params) { defaults.merge(:libraries => { 'lib' => some_library }) }
+    let(:params) { defaults.merge(:libraries => { 'lib' => { 'download' => some_library } }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[type\] = file/) }
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[url\] = http:\/\/example.com\/file.zip/) }
@@ -180,7 +180,7 @@ describe 'drupal::site' do
         'revision' => 'beef'
       }
     end
-    let(:params) { defaults.merge(:libraries => { 'lib' => some_library }) }
+    let(:params) { defaults.merge(:libraries => { 'lib' => { 'download' => some_library } }) }
 
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[type\] = git/) }
     specify { should contain_file(make_file).with_content(/libraries\[lib\]\[download\]\[url\] = http:\/\/git.drupal.org\/project\/drupal.git/) }
@@ -206,9 +206,7 @@ describe 'drupal::site' do
   describe 'with custom destination for a library' do
     let(:some_library) do
       {
-        'type'        => 'file',
-        'url'         => 'http://example.com/file.zip',
-        'md5'         => 'beef',
+        'version'     => '1.0',
         'destination' => 'modules/contrib/project'
       }
     end
