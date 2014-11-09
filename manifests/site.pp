@@ -63,7 +63,7 @@ define drupal::site (
   $real_document_root = pick($document_root, "${drupal::www_dir}/${title}")
   validate_absolute_path($real_document_root)
 
-  # TODO: default data location should be configurable
+  $real_files_path = "${site_file}/sites/default/files"
   $real_files_target = pick($files_target, "/var/lib/${title}")
   validate_absolute_path($real_files_target)
 
@@ -135,7 +135,7 @@ define drupal::site (
     }
   }
 
-  file { "${site_file}/files":
+  file { $real_files_path:
     ensure  => link,
     target  => $real_files_target,
   }
@@ -156,7 +156,7 @@ define drupal::site (
   Exec["rebuild-drupal-${title}"] ->
 
   # then update links to the data directory
-  File["${site_file}/files"] ->
+  File[$real_files_path] ->
 
   # and set the settings file
   File["${site_file}/sites/default/settings.php"] ->
