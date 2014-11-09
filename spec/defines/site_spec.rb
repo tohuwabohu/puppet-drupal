@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'drupal::site' do
   let(:title) { 'dummy' }
   let(:make_file) { '/etc/drupal/dummy.make' }
+  let(:settings_file) { '/etc/drupal/dummy.settings.php' }
   let(:defaults) do
     {
         :core_version => '7.0'
@@ -224,5 +225,34 @@ describe 'drupal::site' do
     let(:params) { {:makefile_content => custom_makefile } }
 
     specify { should contain_file(make_file).with_content(custom_makefile) }
+  end
+
+  describe 'without settings_content' do
+    let(:params) { defaults }
+
+    specify { should contain_file(settings_file).with(
+        'content' => nil,
+        'source'  => '/opt/drupal.org/dummy-f07cd86e789c50de12f7d1cdb41e6f4156fcc08b/sites/default/default.settings.php',
+        'replace' => false,
+        'owner'   => 'www-data',
+        'group'   => 'www-data',
+        'mode'    => '0600'
+      )
+    }
+  end
+
+  describe 'with settings_content' do
+    let(:settings_content) { 'some content' }
+    let(:params) { defaults.merge({:settings_content => settings_content }) }
+
+    specify { should contain_file(settings_file).with(
+        'content' => settings_content,
+        'source'  => nil,
+        'replace' => true,
+        'owner'   => 'www-data',
+        'group'   => 'www-data',
+        'mode'    => '0400'
+      )
+    }
   end
 end

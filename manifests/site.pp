@@ -80,12 +80,36 @@ define drupal::site (
   # TODO: rename me
   $site_file = "${drupal::install_dir}/${title}-${makefile_sha1}"
 
+  $settings_file = "${drupal::config_dir}/${title}.settings.php"
+  if empty($settings_content) {
+    $real_settings_content = undef
+    $real_settings_source = "${site_file}/sites/default/default.settings.php"
+    $real_settings_replace = false
+    $real_settings_mode = '0600'
+  }
+  else {
+    $real_settings_content = $settings_content
+    $real_settings_source = undef
+    $real_settings_replace = true
+    $real_settings_mode = '0400'
+  }
+
   file { $config_file:
     ensure  => file,
     content => $real_makefile_content,
     owner   => 'root',
     group   => 'root',
     mode    => '0444',
+  }
+
+  file { $settings_file:
+    ensure  => file,
+    content => $real_settings_content,
+    source  => $real_settings_source,
+    replace => $real_settings_replace,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => $real_settings_mode,
   }
 
   exec { "rebuild-drupal-${title}":
@@ -116,6 +140,11 @@ define drupal::site (
     target  => $real_files_target,
   }
 
+  file { "${site_file}/sites/default/settings.php":
+    ensure => link,
+    target => $settings_file,
+  }
+
   #
   # Ensure the order of events
   #
@@ -128,6 +157,9 @@ define drupal::site (
 
   # then update links to the data directory
   File["${site_file}/files"] ->
+
+  # and set the settings file
+  File["${site_file}/sites/default/settings.php"] ->
 
   # and if everything goes well - update the document root
   File[$real_document_root]
