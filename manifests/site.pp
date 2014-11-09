@@ -155,9 +155,6 @@ define drupal::site (
   # then rebuild the site (if necessary) ...
   Exec["rebuild-drupal-${title}"] ->
 
-  # then update the settings file
-  File[$settings_file] ->
-
   # then update links to the data directory
   File[$real_files_path] ->
 
