@@ -63,10 +63,6 @@ define drupal::site (
   $real_document_root = pick($document_root, "${drupal::www_dir}/${title}")
   validate_absolute_path($real_document_root)
 
-  $real_files_path = "${site_file}/sites/default/files"
-  $real_files_target = pick($files_target, "/var/lib/${title}")
-  validate_absolute_path($real_files_target)
-
   if empty($makefile_content) {
     $core_major_version = regsubst($core_version, '(\d+).(\d+)$', '\1', 'I')
     $real_makefile_content = template('drupal/drush.make.erb')
@@ -79,6 +75,10 @@ define drupal::site (
   $config_file = "${drupal::config_dir}/${title}.make"
   # TODO: rename me
   $site_file = "${drupal::install_dir}/${title}-${makefile_sha1}"
+
+  $real_files_path = "${site_file}/sites/default/files"
+  $real_files_target = pick($files_target, "/var/lib/${title}")
+  validate_absolute_path($real_files_target)
 
   $settings_file = "${drupal::config_dir}/${title}.settings.php"
   if empty($settings_content) {

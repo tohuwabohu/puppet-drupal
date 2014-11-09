@@ -10,6 +10,12 @@ describe 'drupal::site' do
     }
   end
 
+  describe 'by default' do
+    let(:params) { defaults }
+
+    specify { should contain_file('/opt/drupal.org/dummy-f07cd86e789c50de12f7d1cdb41e6f4156fcc08b/sites/default/files').with_target('/var/lib/dummy') }
+  end
+
   describe 'with core_version => 6.33' do
     let(:params) { defaults.merge(:core_version => '6.33') }
 
