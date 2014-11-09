@@ -86,7 +86,6 @@ define drupal::site (
     owner   => 'root',
     group   => 'root',
     mode    => '0444',
-    notify  => Exec["rebuild-drupal-${title}"],
   }
 
   exec { "rebuild-drupal-${title}":
@@ -115,6 +114,21 @@ define drupal::site (
   file { "${site_file}/files":
     ensure  => link,
     target  => $real_files_target,
-    require => Exec["rebuild-drupal-${title}"],
   }
+
+  #
+  # Ensure the order of events
+  #
+
+  # first update the Drush makefile
+  File[$config_file] ->
+
+  # then rebuild the site (if necessary) ...
+  Exec["rebuild-drupal-${title}"] ->
+
+  # then update links to the data directory
+  File["${site_file}/files"] ->
+
+  # and if everything goes well - update the document root
+  File[$real_document_root]
 }
