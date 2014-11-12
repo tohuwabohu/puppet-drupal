@@ -94,6 +94,11 @@ define drupal::site (
     $real_settings_mode = '0400'
   }
 
+  $drush_build_site = "drush make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_update_database = "drush -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_check_database = "drush --root ${site_file} core-status db-status --pipe"
+  $drush_check_database_successful_response = '{"db-status":"Connected"}'
+
   file { $config_file:
     ensure  => file,
     content => $real_makefile_content,
@@ -113,7 +118,7 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command => "drush make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1 || { rm -rf ${site_file}; exit 99; }",
+    command => "${drush_build_site} || { rm -rf ${site_file}; exit 99; }",
     creates => $site_file,
     timeout => $timeout,
     path    => $drupal::exec_paths,
@@ -145,8 +150,8 @@ define drupal::site (
   }
 
   exec { "update-drupal-${title}-database":
-    command => "drush -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1",
-    onlyif  => "test \"`drush --root ${site_file} core-status db-status --pipe`\" == '{\"db-status\":\"Connected\"}'",
+    command => $drush_update_database,
+    onlyif  => "test \"`${drush_check_database}`\" == '${drush_check_database_successful_response}'",
     timeout => $timeout,
     path    => $drupal::exec_paths,
   }
