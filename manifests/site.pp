@@ -113,7 +113,7 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command => "${drupal::drush_executable} make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1 || { rm -rf ${site_file}; exit 99; }",
+    command => "drush make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1 || { rm -rf ${site_file}; exit 99; }",
     creates => $site_file,
     timeout => $timeout,
     path    => $drupal::exec_paths,
@@ -145,6 +145,14 @@ define drupal::site (
     target => $settings_file,
   }
 
+  exec { "update-drupal-${title}-database":
+    command => "drush -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1",
+    onlyif  => "test \"`drush --root ${site_file} core-status db-status --pipe`\" == '{\"db-status\":\"Connected\"}'",
+    timeout => $timeout,
+    path    => $drupal::exec_paths,
+    require => File[$drupal::drush_executable],
+  }
+
   #
   # Ensure the order of events
   #
@@ -163,6 +171,9 @@ define drupal::site (
 
   # and create a link to the settings file
   File["${site_file}/sites/default/settings.php"] ->
+
+  # run any outstanding database updates
+  Exec["update-drupal-${title}-database"] ->
 
   # and if everything goes well - update the document root
   File[$real_document_root]
