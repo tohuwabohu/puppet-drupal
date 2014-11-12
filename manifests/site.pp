@@ -117,7 +117,6 @@ define drupal::site (
     creates => $site_file,
     timeout => $timeout,
     path    => $drupal::exec_paths,
-    require => File[$drupal::drush_executable],
   }
 
   file { $real_document_root:
@@ -150,7 +149,6 @@ define drupal::site (
     onlyif  => "test \"`drush --root ${site_file} core-status db-status --pipe`\" == '{\"db-status\":\"Connected\"}'",
     timeout => $timeout,
     path    => $drupal::exec_paths,
-    require => File[$drupal::drush_executable],
   }
 
   #
