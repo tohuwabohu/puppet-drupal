@@ -57,9 +57,8 @@ class drupal::install inherits drupal {
   }
 
   exec { "${drupal::composer_path} --working-dir=${drush_install_dir} install":
+    creates     => "${drush_install_dir}/vendor",
     environment => "HOME=${::root_home}",
-    refreshonly => true,
-    subscribe   => Vcsrepo[$drush_install_dir],
     require     => [
       Vcsrepo[$drush_install_dir],
       Exec['install-composer'],
