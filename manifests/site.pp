@@ -100,9 +100,9 @@ define drupal::site (
 
   $real_process = pick($process, $drupal::www_process)
 
-  $drush_build_site = "drush make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_update_database = "drush -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_check_database = "drush --root ${site_file} core-status db-status --pipe"
+  $drush_build_site = "${drupal::drush_path} make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_update_database = "${drupal::drush_path} -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_check_database = "${drupal::drush_path} --root ${site_file} core-status db-status --pipe"
   $drush_check_database_successful_response = '{"db-status":"Connected"}'
 
   file { $config_file:
