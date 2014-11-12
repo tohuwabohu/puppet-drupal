@@ -29,6 +29,9 @@
 # [*composer_path*]
 #   Set the full path (including filename) where to install the composer executable.
 #
+# [*drush_version*]
+#   Set the version (git revision) to be installed.
+#
 # [*drush_path*]
 #   Set the full path (including filename) where the drush executable should be installed to.
 #
@@ -52,6 +55,7 @@ class drupal (
   $exec_paths              = $drupal::params::exec_paths,
   $composer_installer_url  = $drupal::params::composer_installer_url,
   $composer_path           = $drupal::params::composer_path,
+  $drush_version           = $drupal::params::drush_version,
   $drush_path              = $drupal::params::drush_path,
   $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {

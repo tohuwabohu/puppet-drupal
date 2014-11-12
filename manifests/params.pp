@@ -40,6 +40,7 @@ class drupal::params {
     default => '/usr/local/bin/composer'
   }
 
+  $drush_version = '6.4.0'
   $drush_path = $::osfamily ? {
     default => '/usr/local/bin/drush'
   }

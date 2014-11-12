@@ -46,7 +46,7 @@ class drupal::install inherits drupal {
     ensure   => present,
     provider => git,
     source   => 'https://github.com/drush-ops/drush.git',
-    revision => '6.4.0',
+    revision => $drupal::drush_version,
     require  => File[$drupal::install_dir],
   }
 
