@@ -29,6 +29,9 @@
 # [*composer_install_dir*]
 #   Set the directory where to install the composer executable.
 #
+# [*drush_path*]
+#   Set the full path (including filename) where the drush executable should be installed to.
+#
 # [*drush_concurrency_level*]
 #   Set the number of concurrent projects that will be processed at the same time.
 #
@@ -49,6 +52,7 @@ class drupal (
   $exec_paths              = $drupal::params::exec_paths,
   $composer_installer_url  = $drupal::params::composer_installer_url,
   $composer_install_dir    = $drupal::params::composer_install_dir,
+  $drush_path              = $drupal::params::drush_path,
   $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {
 
@@ -56,9 +60,8 @@ class drupal (
   validate_absolute_path($config_dir)
   validate_absolute_path($log_dir)
   validate_absolute_path($www_dir)
-
-  $drush_dir = "${drupal::install_dir}/drush"
-  $drush_executable = '/usr/local/bin/drush'
+  validate_absolute_path($composer_install_dir)
+  validate_absolute_path($drush_path)
 
   class { 'drupal::install': }
 }

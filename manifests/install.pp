@@ -12,6 +12,8 @@
 #
 class drupal::install inherits drupal {
 
+  $drush_install_dir = "${drupal::install_dir}/drush"
+
   file { $drupal::install_dir:
     ensure => directory,
     owner  => 'root',
@@ -39,7 +41,7 @@ class drupal::install inherits drupal {
     path    => $drupal::exec_paths,
   }
 
-  vcsrepo { $drupal::drush_dir:
+  vcsrepo { $drush_install_dir:
     ensure   => present,
     provider => git,
     source   => 'https://github.com/drush-ops/drush.git',
@@ -47,18 +49,18 @@ class drupal::install inherits drupal {
     require  => File[$drupal::install_dir],
   }
 
-  file { $drupal::drush_executable:
+  file { $drupal::drush_path:
     ensure  => link,
-    target  => "${drupal::drush_dir}/drush",
-    require => Vcsrepo[$drupal::drush_dir],
+    target  => "${drush_install_dir}/drush",
+    require => Vcsrepo[$drush_install_dir],
   }
 
-  exec { "composer --working-dir ${drupal::drush_dir} install":
+  exec { "composer --working-dir ${drush_install_dir} install":
     environment => "HOME=${::root_home}",
     refreshonly => true,
-    subscribe   => Vcsrepo[$drupal::drush_dir],
+    subscribe   => Vcsrepo[$drush_install_dir],
     require     => [
-      Vcsrepo[$drupal::drush_dir],
+      Vcsrepo[$drush_install_dir],
       Exec['install-composer'],
     ],
   }

@@ -40,5 +40,8 @@ class drupal::params {
     default => '/usr/local/bin'
   }
 
+  $drush_path = $::osfamily ? {
+    default => '/usr/local/bin/drush'
+  }
   $drush_concurrency_level = 1
 }
