@@ -35,5 +35,10 @@ class drupal::params {
     default => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
   }
 
+  $composer_installer_url = 'https://getcomposer.org/installer'
+  $composer_install_dir = $::osfamily ? {
+    default => '/usr/local/bin'
+  }
+
   $drush_concurrency_level = 1
 }

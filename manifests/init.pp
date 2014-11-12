@@ -23,6 +23,12 @@
 # [*exec_paths*]
 #   Set the paths used to search for executables when invoking exec resources.
 #
+# [*composer_installer_url*]
+#   Set the url where to download the composer installer from.
+#
+# [*composer_install_dir*]
+#   Set the directory where to install the composer executable.
+#
 # [*drush_concurrency_level*]
 #   Set the number of concurrent projects that will be processed at the same time.
 #
@@ -41,6 +47,8 @@ class drupal (
   $www_dir                 = $drupal::params::www_dir,
   $www_process             = $drupal::params::www_process,
   $exec_paths              = $drupal::params::exec_paths,
+  $composer_installer_url  = $drupal::params::composer_installer_url,
+  $composer_install_dir    = $drupal::params::composer_install_dir,
   $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {
 

@@ -12,12 +12,6 @@
 #
 class drupal::install inherits drupal {
 
-  $composer_installer_url = 'https://getcomposer.org/installer'
-  $composer_exec_filename = 'composer'
-  $composer_install_dir = $::osfamily ? {
-    default => '/usr/local/bin'
-  }
-
   file { $drupal::install_dir:
     ensure => directory,
     owner  => 'root',
@@ -40,8 +34,8 @@ class drupal::install inherits drupal {
   }
 
   exec { 'install-composer':
-    command => "curl -sS ${composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=${composer_exec_filename}",
-    creates => "${composer_install_dir}/${composer_exec_filename}",
+    command => "curl -sS ${drupal::composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${drupal::composer_install_dir} --filename=composer",
+    creates => "${drupal::composer_install_dir}/composer",
     path    => $drupal::exec_paths,
   }
 
@@ -59,9 +53,7 @@ class drupal::install inherits drupal {
     require => Vcsrepo[$drupal::drush_dir],
   }
 
-  exec { 'install-drush-dependencies':
-    command     => "${composer_install_dir}/${composer_exec_filename} install",
-    cwd         => $drupal::drush_dir,
+  exec { "composer --working-dir ${drupal::drush_dir} install":
     environment => "HOME=${::root_home}",
     refreshonly => true,
     subscribe   => Vcsrepo[$drupal::drush_dir],
