@@ -131,7 +131,7 @@ define drupal::site (
       ensure => directory,
       owner  => 'www-data',
       group  => 'www-data',
-      mode   => '755',
+      mode   => '0755',
     }
   }
 
