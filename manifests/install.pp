@@ -12,6 +12,7 @@
 #
 class drupal::install inherits drupal {
 
+  $composer_install_dir = dirname($drupal::composer_path)
   $drush_install_dir = "${drupal::install_dir}/drush"
 
   file { $drupal::install_dir:
@@ -36,8 +37,8 @@ class drupal::install inherits drupal {
   }
 
   exec { 'install-composer':
-    command => "curl -sS ${drupal::composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${drupal::composer_install_dir} --filename=composer",
-    creates => "${drupal::composer_install_dir}/composer",
+    command => "curl -sS ${drupal::composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=`basename ${drupal::composer_path}`",
+    creates => $drupal::composer_path,
     path    => $drupal::exec_paths,
   }
 
@@ -55,7 +56,7 @@ class drupal::install inherits drupal {
     require => Vcsrepo[$drush_install_dir],
   }
 
-  exec { "composer --working-dir ${drush_install_dir} install":
+  exec { "${drupal::composer_path} --working-dir ${drush_install_dir} install":
     environment => "HOME=${::root_home}",
     refreshonly => true,
     subscribe   => Vcsrepo[$drush_install_dir],

@@ -36,8 +36,8 @@ class drupal::params {
   }
 
   $composer_installer_url = 'https://getcomposer.org/installer'
-  $composer_install_dir = $::osfamily ? {
-    default => '/usr/local/bin'
+  $composer_path = $::osfamily ? {
+    default => '/usr/local/bin/composer'
   }
 
   $drush_path = $::osfamily ? {

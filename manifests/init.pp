@@ -26,8 +26,8 @@
 # [*composer_installer_url*]
 #   Set the url where to download the composer installer from.
 #
-# [*composer_install_dir*]
-#   Set the directory where to install the composer executable.
+# [*composer_path*]
+#   Set the full path (including filename) where to install the composer executable.
 #
 # [*drush_path*]
 #   Set the full path (including filename) where the drush executable should be installed to.
@@ -51,7 +51,7 @@ class drupal (
   $www_process             = $drupal::params::www_process,
   $exec_paths              = $drupal::params::exec_paths,
   $composer_installer_url  = $drupal::params::composer_installer_url,
-  $composer_install_dir    = $drupal::params::composer_install_dir,
+  $composer_path           = $drupal::params::composer_path,
   $drush_path              = $drupal::params::drush_path,
   $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {
@@ -60,7 +60,7 @@ class drupal (
   validate_absolute_path($config_dir)
   validate_absolute_path($log_dir)
   validate_absolute_path($www_dir)
-  validate_absolute_path($composer_install_dir)
+  validate_absolute_path($composer_path)
   validate_absolute_path($drush_path)
 
   class { 'drupal::install': }
