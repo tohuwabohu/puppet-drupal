@@ -7,7 +7,7 @@ describe 'drupal' do
     let(:params) { {} }
 
     specify { should contain_file('/opt/drupal.org').with_ensure('directory') }
-    specify { should contain_file('/etc/drupal').with_ensure('directory') }
+    specify { should contain_file('/etc/drush').with_ensure('directory') }
     specify { should contain_file('/var/log/drush').with_ensure('directory') }
   end
 

@@ -16,7 +16,7 @@ class drupal::params {
   }
 
   $config_dir = $::osfamily ? {
-    default => '/etc/drupal'
+    default => '/etc/drush'
   }
 
   $log_dir = $::osfamily ? {

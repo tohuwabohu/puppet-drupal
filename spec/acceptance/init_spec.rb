@@ -94,11 +94,11 @@ describe 'by default' do
     specify { should be_executable }
   end
 
-  describe file('/etc/drupal/drupal-6.x.make') do
+  describe file('/etc/drush/drupal-6.x.make') do
     specify { should be_file }
   end
 
-  describe file('/etc/drupal/drupal-7.x.make') do
+  describe file('/etc/drush/drupal-7.x.make') do
     specify { should be_file }
   end
 

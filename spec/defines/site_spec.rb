@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'drupal::site' do
   let(:title) { 'dummy' }
-  let(:make_file) { '/etc/drupal/dummy.make' }
-  let(:settings_file) { '/etc/drupal/dummy.settings.php' }
+  let(:make_file) { '/etc/drush/dummy.make' }
+  let(:settings_file) { '/etc/drush/dummy.settings.php' }
   let(:defaults) do
     {
         :core_version => '7.0'
