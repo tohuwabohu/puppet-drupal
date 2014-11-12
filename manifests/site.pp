@@ -34,6 +34,9 @@
 #   Set the path to the document root. This will result in a symbolic link pointing to a directory containing all
 #   modules and themes as configured.
 #
+# [*process*]
+#   Set the name of the process that is executing this Drupal site.
+#
 # [*timeout*]
 #   Set the timeout in seconds of the rebuild site command.
 #
@@ -55,6 +58,7 @@ define drupal::site (
   $files_manage     = true,
   $makefile_content = undef,
   $document_root    = undef,
+  $process          = undef,
   $timeout          = undef,
 ) {
 
@@ -94,6 +98,8 @@ define drupal::site (
     $real_settings_mode = '0400'
   }
 
+  $real_process = pick($process, $drupal::www_process)
+
   $drush_build_site = "drush make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_update_database = "drush -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_check_database = "drush --root ${site_file} core-status db-status --pipe"
@@ -112,8 +118,8 @@ define drupal::site (
     content => $real_settings_content,
     source  => $real_settings_source,
     replace => $real_settings_replace,
-    owner   => 'www-data',
-    group   => 'www-data',
+    owner   => $real_process,
+    group   => $real_process,
     mode    => $real_settings_mode,
   }
 
@@ -133,8 +139,8 @@ define drupal::site (
     # TODO: owner and group should be configurable
     file { $real_files_target:
       ensure => directory,
-      owner  => 'www-data',
-      group  => 'www-data',
+      owner  => $real_process,
+      group  => $real_process,
       mode   => '0755',
     }
   }
@@ -152,6 +158,7 @@ define drupal::site (
   exec { "update-drupal-${title}-database":
     command => $drush_update_database,
     onlyif  => "test \"`${drush_check_database}`\" == '${drush_check_database_successful_response}'",
+    user    => $process,
     timeout => $timeout,
     path    => $drupal::exec_paths,
   }

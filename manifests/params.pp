@@ -27,6 +27,10 @@ class drupal::params {
     default => '/var/www'
   }
 
+  $www_process = $::osfamily ? {
+    default => 'www-data'
+  }
+
   $exec_paths = $::osfamily ? {
     default => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
   }

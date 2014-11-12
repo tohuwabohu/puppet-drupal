@@ -17,6 +17,9 @@
 #   Set the root directory where to create the document root for all managed Drupal sites.
 #   Note: as this directory can be shared with other modules, it is not managed.
 #
+# [*www_process*]
+#   Set the name of the process that is executing the Drupal site.
+#
 # [*exec_paths*]
 #   Set the paths used to search for executables when invoking exec resources.
 #
@@ -36,6 +39,7 @@ class drupal (
   $config_dir              = $drupal::params::config_dir,
   $log_dir                 = $drupal::params::log_dir,
   $www_dir                 = $drupal::params::www_dir,
+  $www_process             = $drupal::params::www_process,
   $exec_paths              = $drupal::params::exec_paths,
   $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {
