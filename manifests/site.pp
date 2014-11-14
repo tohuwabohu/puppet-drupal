@@ -64,10 +64,19 @@ define drupal::site (
 
   require drupal
 
+  validate_hash($modules)
+  validate_hash($themes)
+  validate_hash($libraries)
+  validate_bool($files_manage)
+
   $real_document_root = pick($document_root, "${drupal::www_dir}/${title}")
   validate_absolute_path($real_document_root)
 
   if empty($makefile_content) {
+    if $core_version !~ /^[a-zA-Z0-9\._-]+$/ {
+      fail("Drupal::Site[${title}]: core_version must be alphanumeric, got '${core_version}'")
+    }
+
     $core_major_version = regsubst($core_version, '(\d+).(\d+)$', '\1', 'I')
     $real_makefile_content = template('drupal/drush.make.erb')
   }
@@ -97,6 +106,10 @@ define drupal::site (
     $real_settings_mode = '0400'
   }
 
+
+  if !empty($process) and $process !~ /^[a-zA-Z0-9\._-]+$/ {
+    fail("Drupal::Site[${title}]: process must be alphanumeric, got '${process}'")
+  }
   $real_process = pick($process, $drupal::www_process)
 
   $drush_build_site = "${drupal::drush_path} make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
