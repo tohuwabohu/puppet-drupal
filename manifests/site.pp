@@ -77,17 +77,16 @@ define drupal::site (
 
   $makefile_sha1 = sha1($real_makefile_content)
   $config_file = "${drupal::config_dir}/${title}.make"
-  # TODO: rename me
-  $site_file = "${drupal::install_dir}/${title}-${makefile_sha1}"
+  $drupal_site_dir = "${drupal::install_dir}/${title}-${makefile_sha1}"
 
-  $real_files_path = "${site_file}/sites/default/files"
+  $real_files_path = "${drupal_site_dir}/sites/default/files"
   $real_files_target = pick($files_target, "/var/lib/${title}")
   validate_absolute_path($real_files_target)
 
   $settings_file = "${drupal::config_dir}/${title}.settings.php"
   if empty($settings_content) {
     $real_settings_content = undef
-    $real_settings_source = "${site_file}/sites/default/default.settings.php"
+    $real_settings_source = "${drupal_site_dir}/sites/default/default.settings.php"
     $real_settings_replace = false
     $real_settings_mode = '0600'
   }
@@ -100,9 +99,9 @@ define drupal::site (
 
   $real_process = pick($process, $drupal::www_process)
 
-  $drush_build_site = "${drupal::drush_path} make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${site_file} >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_update_database = "${drupal::drush_path} -v --root ${site_file} updatedb >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_check_database = "${drupal::drush_path} --root ${site_file} core-status db-status --pipe"
+  $drush_build_site = "${drupal::drush_path} make -v --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_update_database = "${drupal::drush_path} -v --root ${drupal_site_dir} updatedb >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_check_database = "${drupal::drush_path} --root ${drupal_site_dir} core-status db-status --pipe"
   $drush_check_database_successful_response = '{"db-status":"Connected"}'
 
   file { $config_file:
@@ -124,19 +123,18 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command => "${drush_build_site} || { rm -rf ${site_file}; exit 99; }",
-    creates => $site_file,
+    command => "${drush_build_site} || { rm -rf ${drupal_site_dir}; exit 99; }",
+    creates => $drupal_site_dir,
     timeout => $timeout,
     path    => $drupal::exec_paths,
   }
 
   file { $real_document_root:
     ensure => link,
-    target => $site_file,
+    target => $drupal_site_dir,
   }
 
   if $files_manage {
-    # TODO: owner and group should be configurable
     file { $real_files_target:
       ensure => directory,
       owner  => $real_process,
@@ -150,7 +148,7 @@ define drupal::site (
     target  => $real_files_target,
   }
 
-  file { "${site_file}/sites/default/settings.php":
+  file { "${drupal_site_dir}/sites/default/settings.php":
     ensure => link,
     target => $settings_file,
   }
@@ -180,7 +178,7 @@ define drupal::site (
   File[$settings_file] ->
 
   # and create a link to the settings file
-  File["${site_file}/sites/default/settings.php"] ->
+  File["${drupal_site_dir}/sites/default/settings.php"] ->
 
   # run any outstanding database updates
   Exec["update-drupal-${title}-database"] ->
