@@ -22,7 +22,7 @@ describe 'drupal::site' do
     specify { should contain_file(files_dir) }
     specify { should contain_file(files_dir).with_owner('www-data') }
     specify { should contain_file(files_dir).with_group('www-data') }
-    specify { should contain_file(files_dir).with_mode('0755') }
+    specify { should contain_file(files_dir).with_mode('0644') }
     specify { should contain_file("#{drupal_site_dir}/sites/default/files").with_target(files_dir) }
   end
 

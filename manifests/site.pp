@@ -22,9 +22,12 @@
 # [*files_target*]
 #   Set the target of the `files` directory.
 #
+# [*files_mode*]
+#   Set the mode of the `files` directory.
+#
 # [*files_manage*]
-#   Set to `true` to manage the `files` directory of a Drupal site kept outside of the actual Drupal installation. Set
-#   to `false` if the directory is already managed somewhere else.
+#   Set to `true` to manage the `files` directory of a Drupal site. Set to `false` if the directory is already managed
+#   somewhere else.
 #
 # [*makefile_content*]
 #   Set content of the makefile to be used (optional). Other parameters used to generate a makefile (`core_version`,
@@ -55,6 +58,7 @@ define drupal::site (
   $libraries        = {},
   $settings_content = undef,
   $files_target     = undef,
+  $files_mode       = '0644',
   $files_manage     = true,
   $makefile_content = undef,
   $document_root    = undef,
@@ -152,7 +156,7 @@ define drupal::site (
       ensure => directory,
       owner  => $real_process,
       group  => $real_process,
-      mode   => '0755',
+      mode   => $files_mode,
     }
   }
 
