@@ -19,6 +19,9 @@
 # [*settings_content*]
 #   Set the content of the `settings.php`.
 #
+# [*settings_mode*]
+#   Set the mode of the `settings.php`.
+#
 # [*files_target*]
 #   Set the target of the `files` directory.
 #
@@ -57,6 +60,7 @@ define drupal::site (
   $themes           = {},
   $libraries        = {},
   $settings_content = undef,
+  $settings_mode    = undef,
   $files_target     = undef,
   $files_mode       = '0644',
   $files_manage     = true,
@@ -101,13 +105,13 @@ define drupal::site (
     $real_settings_content = undef
     $real_settings_source = "${drupal_site_dir}/sites/default/default.settings.php"
     $real_settings_replace = false
-    $real_settings_mode = '0600'
+    $real_settings_mode = pick($settings_mode, '0600')
   }
   else {
     $real_settings_content = $settings_content
     $real_settings_source = undef
     $real_settings_replace = true
-    $real_settings_mode = '0400'
+    $real_settings_mode = pick($settings_mode, '0400')
   }
 
 
