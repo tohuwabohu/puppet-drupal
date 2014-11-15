@@ -20,6 +20,9 @@
 # [*www_process*]
 #   Set the name of the process that is executing the Drupal site.
 #
+# [*cache_dir*]
+#   Set the path to the directory where to cache downloaded drush archives (like drush).
+#
 # [*exec_paths*]
 #   Set the paths used to search for executables when invoking exec resources.
 #
@@ -52,10 +55,12 @@ class drupal (
   $log_dir                 = $drupal::params::log_dir,
   $www_dir                 = $drupal::params::www_dir,
   $www_process             = $drupal::params::www_process,
+  $cache_dir               = $drupal::params::cache_dir,
   $exec_paths              = $drupal::params::exec_paths,
   $composer_installer_url  = $drupal::params::composer_installer_url,
   $composer_path           = $drupal::params::composer_path,
   $drush_version           = $drupal::params::drush_version,
+  $drush_archive_md5sum    = $drupal::params::drush_archive_md5sum,
   $drush_path              = $drupal::params::drush_path,
   $drush_concurrency_level = $drupal::params::drush_concurrency_level,
 ) inherits drupal::params {
@@ -64,6 +69,7 @@ class drupal (
   validate_absolute_path($config_dir)
   validate_absolute_path($log_dir)
   validate_absolute_path($www_dir)
+  validate_absolute_path($cache_dir)
   validate_absolute_path($composer_path)
   validate_absolute_path($drush_path)
 

@@ -31,6 +31,10 @@ class drupal::params {
     default => 'www-data'
   }
 
+  $cache_dir = $::osfamily ? {
+    default => '/var/cache/puppet/archives'
+  }
+
   $exec_paths = $::osfamily ? {
     default => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
   }
@@ -41,6 +45,7 @@ class drupal::params {
   }
 
   $drush_version = '6.4.0'
+  $drush_archive_md5sum = '86f2772aaab4c112149490e5ac4ded59'
   $drush_path = $::osfamily ? {
     default => '/usr/local/bin/drush'
   }

@@ -23,7 +23,7 @@ RSpec.configure do |c|
       copy_module_to(host, :source => proj_root, :module_name => 'drupal', :ignore_list => ignore_list)
 
       # Install dependencies
-      on host, puppet('module', 'install', 'puppetlabs-vcsrepo', '--version 1.1.0')
+      on host, puppet('module', 'install', 'camptocamp-archive', '--version 0.3.1')
       on host, puppet('module', 'install', 'puppetlabs-stdlib', '--version 4.3.2')
     end
   end

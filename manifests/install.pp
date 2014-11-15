@@ -13,7 +13,9 @@
 class drupal::install inherits drupal {
 
   $composer_install_dir = dirname($drupal::composer_path)
-  $drush_install_dir = "${drupal::install_dir}/drush"
+  $drush_archive = "drush-${drupal::drush_version}"
+  $drush_download_url = "https://github.com/drush-ops/drush/archive/${drupal::drush_version}.tar.gz"
+  $drush_install_dir = "${drupal::install_dir}/${drush_archive}"
 
   file { $drupal::install_dir:
     ensure => directory,
@@ -42,25 +44,31 @@ class drupal::install inherits drupal {
     path    => $drupal::exec_paths,
   }
 
-  vcsrepo { $drush_install_dir:
-    ensure   => present,
-    provider => git,
-    source   => 'https://github.com/drush-ops/drush.git',
-    revision => $drupal::drush_version,
-    require  => File[$drupal::install_dir],
+  archive { $drush_archive:
+    ensure           => present,
+    url              => $drush_download_url,
+    digest_string    => $drupal::drush_archive_md5sum,
+    target           => $drupal::install_dir,
+    src_target       => $drupal::cache_dir,
+    timeout          => 60,
+    follow_redirects => true,
+    require          => [
+      File[$drupal::install_dir],
+      File[$drupal::cache_dir]
+    ],
   }
 
   file { $drupal::drush_path:
     ensure  => link,
     target  => "${drush_install_dir}/drush",
-    require => Vcsrepo[$drush_install_dir],
+    require => Archive[$drush_archive],
   }
 
   exec { "${drupal::composer_path} --working-dir=${drush_install_dir} install":
     creates     => "${drush_install_dir}/vendor",
     environment => "HOME=${::root_home}",
     require     => [
-      Vcsrepo[$drush_install_dir],
+      Archive[$drush_archive],
       Exec['install-composer'],
     ],
   }

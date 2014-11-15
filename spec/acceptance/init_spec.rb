@@ -4,7 +4,12 @@ describe 'by default' do
   specify 'should provision with no errors' do
     pp = <<-EOS
       # just a bunch of dependencies
-      file { '/var/www':
+      $required_directories = [
+        '/var/cache/puppet',
+        '/var/cache/puppet/archives',
+        '/var/www',
+      ]
+      file { $required_directories:
         ensure => directory,
       }
 
@@ -85,7 +90,7 @@ describe 'by default' do
     specify { should be_executable }
   end
 
-  describe file('/opt/drupal.org/drush') do
+  describe file('/opt/drupal.org/drush-6.4.0') do
     specify { should be_directory }
   end
 

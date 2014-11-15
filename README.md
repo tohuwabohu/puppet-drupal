@@ -6,8 +6,14 @@ Install and manage different versions of Drupal including modules and sites.
 
 ##Usage
 
-The module uses [Drush](https://github.com/drush-ops/drush to manage a Drupal site configuration - everytime it changes,
-the site will be regenerated.
+The module uses [Drush](https://github.com/drush-ops/drush) and the Drush makefiles to manage a Drupal site
+configuration. So everytime any of the Puppet configuration changes, the whole site will be rebuild from ground. To be
+able to do this, the site configuration (`settings.php`) and `files` have to be kept outside of the actual Drupal site.
+Furthermore, the current state doesn't support multi-site configurations.
+
+The structure of the three major properties (`modules`, `themes` and `libraries`) translates directly to the Drush
+makefile format. See [here](https://github.com/drush-ops/drush/blob/master/examples/example.make) for an example of the
+possible configuration.
 
 Install Drupal 7 with a bunch of modules, a theme and a library:
 
@@ -76,10 +82,14 @@ drupal::site { 'example.com':
 
 TODO: destination - The path is relative to that specified by the `--contrib-destination` option ('sites/all' by default for libraries)
 
-TODO: add a note about required tools to handle compressed archives like unzip
-
 
 ##Limitations
+
+Drupal-specific
+
+* No nulti-sites support
+* No backup configuration
+* Drupal site configuration (`settings.xml`) has to be provided
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
