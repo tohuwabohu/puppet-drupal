@@ -53,7 +53,7 @@ Install a module from a custom location:
 
 ```
 drupal::site { 'example.com':
-  modules      => {
+  modules => {
     'cck'   => {
       'download' => {
         'type' => 'file',
@@ -69,7 +69,7 @@ Apply a patch:
 
 ```
 drupal::site { 'example.com':
-  modules      => {
+  modules => {
     'pathauto' => {
       'version' => '1.2',
       'patch'   => [
@@ -80,8 +80,23 @@ drupal::site { 'example.com':
 }
 ```
 
-TODO: destination - The path is relative to that specified by the `--contrib-destination` option ('sites/all' by default for libraries)
+Install the `jquery_ui` library into `sites/all/modules/jquery_ui/jquery.ui` as opposed to `sites/all/libraries/jquery_ui`.
 
+```
+drupal::site { 'example.com':
+  libraries => {
+    'jquery_ui' => {
+      'download'       => {
+        'type' => 'file',
+        'url'  => 'https://www.dropbox.com/s/kcg4l39c3bqgee1/jquery.ui-1.6.zip',
+        'md5'  => 'c177d38bc7af59d696b2efd7dda5c605',
+      },
+      'destination'    => 'modules/jquery_ui',
+      'directory_name' => 'jquery.ui',
+    },
+  },
+}
+```
 
 ##Limitations
 
