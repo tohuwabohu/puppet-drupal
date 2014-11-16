@@ -185,7 +185,7 @@ define drupal::site (
 
   exec { "update-drupal-${title}-database":
     command => $drush_update_database,
-    onlyif  => "test \"`${drush_check_database}`\" == '${drush_check_database_successful_response}'",
+    onlyif  => "${drush_check_database} | grep -qw '${drush_check_database_successful_response}'" ,
     user    => $process,
     timeout => $timeout,
     path    => $drupal::exec_paths,
