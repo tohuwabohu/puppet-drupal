@@ -22,6 +22,10 @@
 # [*settings_mode*]
 #   Set the mode of the `settings.php`.
 #
+# [*files_path*]
+#   Set the relative (!) path of the files directory within the Drupal site. E.g `files` or `sites/default/files`.
+#   Should be consistent with the value configured in the ui.
+#
 # [*files_target*]
 #   Set the target of the `files` directory.
 #
@@ -61,6 +65,7 @@ define drupal::site (
   $libraries        = {},
   $settings_content = undef,
   $settings_mode    = undef,
+  $files_path       = 'sites/default/files',
   $files_target     = undef,
   $files_mode       = '0644',
   $files_manage     = true,
@@ -96,7 +101,11 @@ define drupal::site (
   $config_file = "${drupal::config_dir}/${title}.make"
   $drupal_site_dir = "${drupal::install_dir}/${title}-${makefile_sha1}"
 
-  $real_files_path = "${drupal_site_dir}/sites/default/files"
+  if empty($files_path) or $files_path =~ /^\/.*$/ {
+    fail("Drupal::Site[${title}]: files_path must be a relative path, got '${files_path}'")
+  }
+
+  $real_files_path = "${drupal_site_dir}/${files_path}"
   $real_files_target = pick($files_target, "/var/lib/${title}")
   validate_absolute_path($real_files_target)
 

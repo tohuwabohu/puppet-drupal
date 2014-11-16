@@ -304,7 +304,29 @@ describe 'drupal::site' do
     }
   end
 
-  describe 'with custom files directory' do
+  describe 'with custom files_path directory' do
+    let(:params) { defaults.merge({:files_path => 'files'}) }
+
+    specify { should contain_file("#{drupal_site_dir}/files") }
+  end
+
+  describe 'with absolute files_path directory' do
+    let(:params) { defaults.merge({:files_path => '/invalid'}) }
+
+    specify do
+      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /files_path/)
+    end
+  end
+
+  describe 'with empty files_path directory' do
+    let(:params) { defaults.merge({:files_path => ''}) }
+
+    specify do
+      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /files_path/)
+    end
+  end
+
+  describe 'with custom files_target directory' do
     let(:params) { defaults.merge({:files_target => '/path/to/files'}) }
 
     specify { should contain_file('/path/to/files') }
