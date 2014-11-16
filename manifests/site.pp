@@ -36,6 +36,9 @@
 #   Set to `true` to manage the `files` directory of a Drupal site. Set to `false` if the directory is already managed
 #   somewhere else.
 #
+# [*database_updates_disable*]
+#   Set to `true` to disable executing pending database updates.
+#
 # [*makefile_content*]
 #   Set content of the makefile to be used (optional). Other parameters used to generate a makefile (`core_version`,
 #   `modules` and `themes`) are ignored when this one is used..
@@ -59,20 +62,21 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define drupal::site (
-  $core_version     = undef,
-  $modules          = {},
-  $themes           = {},
-  $libraries        = {},
-  $settings_content = undef,
-  $settings_mode    = undef,
-  $files_path       = 'sites/default/files',
-  $files_target     = undef,
-  $files_mode       = '0644',
-  $files_manage     = true,
-  $makefile_content = undef,
-  $document_root    = undef,
-  $process          = undef,
-  $timeout          = undef,
+  $core_version             = undef,
+  $modules                  = {},
+  $themes                   = {},
+  $libraries                = {},
+  $settings_content         = undef,
+  $settings_mode            = undef,
+  $files_path               = 'sites/default/files',
+  $files_target             = undef,
+  $files_mode               = '0644',
+  $files_manage             = true,
+  $database_updates_disable = false,
+  $makefile_content         = undef,
+  $document_root            = undef,
+  $process                  = undef,
+  $timeout                  = undef,
 ) {
 
   require drupal
@@ -189,6 +193,7 @@ define drupal::site (
     unless  => "test -z \"`${drush_check_pending_database_updates}`\"" ,
     user    => $process,
     timeout => $timeout,
+    noop    => $database_updates_disable,
     path    => $drupal::exec_paths,
   }
 

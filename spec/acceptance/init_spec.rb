@@ -17,8 +17,9 @@ describe 'by default' do
       class { 'drupal': }
 
       drupal::site { 'drupal-6.x':
-        core_version => '6.33',
-        modules      => {
+        core_version             => '6.33',
+        database_updates_disable => true,
+        modules                  => {
           'cck'   => {
             'download' => {
               'type' => 'file',
@@ -28,7 +29,7 @@ describe 'by default' do
           },
           'views' => '2.16',
         },
-        themes       => {
+        themes                   => {
           'marinelli' => {
             'download' => {
               'type'     => 'git',
@@ -41,8 +42,9 @@ describe 'by default' do
       }
 
       drupal::site { 'drupal-7.x':
-        core_version => '7.32',
-        modules      => {
+        core_version             => '7.32',
+        database_updates_disable => true,
+        modules                  => {
           'ctools'   => {
             'download' => {
               'type'     => 'git',
@@ -58,7 +60,7 @@ describe 'by default' do
           },
           'views'    => '3.8',
         },
-        themes       => {
+        themes                   => {
           'omega' => '4.3',
           'zen'   => {
             'download' => {
@@ -68,7 +70,7 @@ describe 'by default' do
             },
           },
         },
-        libraries    => {
+        libraries                => {
           'jquery_ui' => {
             'download' => {
               'type' => 'file',
