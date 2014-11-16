@@ -131,8 +131,7 @@ define drupal::site (
 
   $drush_build_site = "${drupal::drush_path} make --verbose --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_update_database = "${drupal::drush_path} updatedb --verbose --root=${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_check_database = "${drupal::drush_path} core-status db-status --pipe --root=${drupal_site_dir}"
-  $drush_check_database_successful_response = '{"db-status":"Connected"}'
+  $drush_check_pending_database_updates = "${drupal::drush_path} updatedb-status --pipe --root=${drupal_site_dir} 2>&1"
 
   file { $config_file:
     ensure  => file,
@@ -185,7 +184,9 @@ define drupal::site (
 
   exec { "update-drupal-${title}-database":
     command => $drush_update_database,
-    onlyif  => "${drush_check_database} | grep -qw '${drush_check_database_successful_response}'" ,
+    # The check command is expected to exit with 0 only when there are no outstanding database updates. If there are
+    # issues connecting to the database or pending updates, the check command should exit with 1.
+    unless  => "test -z \"`${drush_check_pending_database_updates}`\"" ,
     user    => $process,
     timeout => $timeout,
     path    => $drupal::exec_paths,
