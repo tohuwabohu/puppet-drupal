@@ -62,18 +62,19 @@ class drupal::install inherits drupal {
     ],
   }
 
-  file { $drupal::drush_path:
-    ensure  => link,
-    target  => "${drush_install_dir}/drush",
-    require => Archive[$drush_archive],
-  }
-
-  exec { "${drupal::composer_path} --working-dir=${drush_install_dir} install":
+  exec { 'install-drush-dependencies':
+    command     => "${drupal::composer_path} --working-dir=${drush_install_dir} install",
     creates     => "${drush_install_dir}/vendor",
     environment => "HOME=${::root_home}",
     require     => [
       Archive[$drush_archive],
       Exec['install-composer'],
     ],
+  }
+
+  file { $drupal::drush_path:
+    ensure  => link,
+    target  => "${drush_install_dir}/drush",
+    require => Exec['install-drush-dependencies'],
   }
 }
