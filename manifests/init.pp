@@ -57,6 +57,8 @@ class drupal (
   $www_process             = $drupal::params::www_process,
   $cache_dir               = $drupal::params::cache_dir,
   $exec_paths              = $drupal::params::exec_paths,
+  $curl_package_name       = $drupal::params::curl_package_name,
+  $php_cli_package_name    = $drupal::params::php_cli_package_name,
   $composer_installer_url  = $drupal::params::composer_installer_url,
   $composer_path           = $drupal::params::composer_path,
   $drush_version           = $drupal::params::drush_version,

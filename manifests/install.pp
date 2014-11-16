@@ -42,6 +42,10 @@ class drupal::install inherits drupal {
     command => "curl -sS ${drupal::composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=`basename ${drupal::composer_path}`",
     creates => $drupal::composer_path,
     path    => $drupal::exec_paths,
+    require => [
+      Package[$drupal::curl_package_name],
+      Package[$drupal::php_cli_package_name],
+    ],
   }
 
   archive { $drush_archive:

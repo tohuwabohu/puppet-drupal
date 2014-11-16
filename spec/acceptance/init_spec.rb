@@ -12,6 +12,12 @@ describe 'by default' do
       file { $required_directories:
         ensure => directory,
       }
+      package { 'curl':
+        ensure => installed,
+      }
+      package { 'php5-cli':
+        ensure => installed,
+      }
 
       # test manifest
       class { 'drupal': }

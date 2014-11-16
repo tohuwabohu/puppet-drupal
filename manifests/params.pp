@@ -39,6 +39,14 @@ class drupal::params {
     default => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin']
   }
 
+  $curl_package_name = $::osfamily ? {
+    default => 'curl'
+  }
+
+  $php_cli_package_name = $::osfamily ? {
+    default => 'php5-cli'
+  }
+
   $composer_installer_url = 'https://getcomposer.org/installer'
   $composer_path = $::osfamily ? {
     default => '/usr/local/bin/composer'
