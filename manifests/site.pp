@@ -134,7 +134,7 @@ define drupal::site (
   $real_process = pick($process, $drupal::www_process)
 
   $drush_build_site = "${drupal::drush_path} make --verbose --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_update_database = "${drupal::drush_path} updatedb --verbose --root=${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_update_database = "${drupal::drush_path} updatedb --yes --verbose --root=${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_check_pending_database_updates = "${drupal::drush_path} updatedb-status --pipe --root=${drupal_site_dir} 2>&1"
 
   file { $config_file:
