@@ -131,7 +131,7 @@ define drupal::site (
 
   $drush_build_site = "${drupal::drush_path} make --verbose --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_update_database = "${drupal::drush_path} updatedb --verbose --root=${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
-  $drush_check_database = "${drupal::drush_path} core-status db-status --pipe  --root=${drupal_site_dir}"
+  $drush_check_database = "${drupal::drush_path} core-status db-status --pipe --root=${drupal_site_dir}"
   $drush_check_database_successful_response = '{"db-status":"Connected"}'
 
   file { $config_file:
