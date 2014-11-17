@@ -72,7 +72,7 @@ define drupal::site (
   $files_target             = undef,
   $files_mode               = '0644',
   $files_manage             = true,
-  $database_updates_disable = false,
+  $database_updates_disable = undef,
   $makefile_content         = undef,
   $document_root            = undef,
   $process                  = undef,
@@ -136,6 +136,13 @@ define drupal::site (
   $drush_build_site = "${drupal::drush_path} make --verbose --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_update_database = "${drupal::drush_path} updatedb --yes --verbose --root=${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_check_pending_database_updates = "${drupal::drush_path} updatedb-status --pipe --root=${drupal_site_dir} 2>&1"
+
+  $real_database_updates_disable = $database_updates_disable ? {
+    # If updates are enabled, the resource noop takes precedence over the global noop settings and hence would be
+    # executed during a simulated Puppet run.
+    true    => true,
+    default => undef,
+  }
 
   file { $config_file:
     ensure  => file,
