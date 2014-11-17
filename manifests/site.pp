@@ -200,7 +200,7 @@ define drupal::site (
     unless  => "test -z \"`${drush_check_pending_database_updates}`\"" ,
     user    => $process,
     timeout => $timeout,
-    noop    => $database_updates_disable,
+    noop    => $real_database_updates_disable,
     path    => $drupal::exec_paths,
   }
 
