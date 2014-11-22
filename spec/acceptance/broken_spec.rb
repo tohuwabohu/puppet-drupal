@@ -1,23 +1,9 @@
 require 'spec_helper_acceptance'
+include TestDependencies
 
 describe 'a broken module' do
   specify 'should fail the puppet run' do
     pp = <<-EOS
-      # just a bunch of dependencies
-      $required_directories = [
-        '/var/cache/puppet',
-        '/var/cache/puppet/archives',
-      ]
-      file { $required_directories:
-        ensure => directory,
-      }
-      package { 'curl':
-        ensure => installed,
-      }
-      package { 'php5-cli':
-        ensure => installed,
-      }
-
       # test manifest
       class { 'drupal': }
 
@@ -29,6 +15,6 @@ describe 'a broken module' do
       }
     EOS
 
-    apply_manifest(pp, :acceptable_exit_codes => [91])
+    apply_manifest(with_test_dependencies(pp), :acceptable_exit_codes => [91])
   end
 end

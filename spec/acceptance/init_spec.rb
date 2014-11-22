@@ -1,31 +1,16 @@
 require 'spec_helper_acceptance'
+include TestDependencies
 
 describe 'drupal' do
   specify 'should provision with no errors' do
     pp = <<-EOS
-      # just a bunch of dependencies
-      $required_directories = [
-        '/var/cache/puppet',
-        '/var/cache/puppet/archives',
-        '/var/www',
-      ]
-      file { $required_directories:
-        ensure => directory,
-      }
-      package { 'curl':
-        ensure => installed,
-      }
-      package { 'php5-cli':
-        ensure => installed,
-      }
-
       # test manifest
       class { 'drupal': }
     EOS
 
     # Run it twice and test for idempotency
-    apply_manifest(pp, :catch_failures => true)
-    apply_manifest(pp, :catch_changes => true)
+    apply_manifest(with_test_dependencies(pp), :catch_failures => true)
+    apply_manifest(with_test_dependencies(pp), :catch_changes => true)
   end
 
   describe file('/usr/local/bin/composer') do

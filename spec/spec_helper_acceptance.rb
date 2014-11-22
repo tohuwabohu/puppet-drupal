@@ -1,5 +1,6 @@
 require 'beaker-rspec/spec_helper'
 require 'beaker-rspec/helpers/serverspec'
+require 'helpers/dependencies'
 
 unless ENV['BEAKER_PROVISION'] == 'no'
   hosts.each do |host|
