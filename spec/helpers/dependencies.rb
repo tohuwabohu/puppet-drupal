@@ -8,6 +8,7 @@ module TestDependencies
       $required_directories = [
         '/var/cache/puppet',
         '/var/cache/puppet/archives',
+        '/var/www',
       ]
 
       file { $required_directories:
