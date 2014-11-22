@@ -20,36 +20,36 @@ PuppetLint.configuration.ignore_paths = exclude_paths
 PuppetSyntax.exclude_paths = exclude_paths
 
 desc 'Run the acceptance tests with the default Beaker node'
-RSpec::Core::RakeTask.new(:acceptance) do |t|
+RSpec::Core::RakeTask.new(:beaker) do |t|
   t.pattern = 'spec/acceptance'
 end
 
 desc 'Run acceptance tests against all beaker nodes'
-task :acceptance_all do
+task :beaker_all do
   hosts = Dir.glob(File.join('spec', 'acceptance', 'nodesets', '*.yml')).collect { |file| File.basename(file, '.yml') }
   hosts.sort.each_with_index do |host,index|
     ENV['BEAKER_set'] = host
     puts "Testing host: #{host}"
     if index == 0
-      Rake::Task['acceptance'].invoke
+      Rake::Task['beaker'].invoke
     else
-      Rake::Task['acceptance'].reenable
-      Rake::Task['acceptance'].invoke
+      Rake::Task['beaker'].reenable
+      Rake::Task['beaker'].invoke
     end
   end
 end
 
 desc 'Prepare running the acceptance tests by starting the Beaker nodes'
-task :acceptance_prep do
+task :beaker_prep do
   ENV['RS_DESTROY'] = 'no'
-  Rake::Task['acceptance'].invoke
+  Rake::Task['beaker'].invoke
 end
 
 desc 'Run the acceptance tests with the existing Beaker nodes'
-task :acceptance_standalone do
+task :beaker_standalone do
   ENV['RS_DESTROY'] = 'no'
   ENV['RS_PROVISION'] = 'no'
-  Rake::Task['acceptance'].invoke
+  Rake::Task['beaker'].invoke
 end
 
 task :test => [
