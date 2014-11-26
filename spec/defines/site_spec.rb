@@ -7,6 +7,7 @@ describe 'drupal::site' do
   let(:files_dir) { '/var/lib/dummy' }
   let(:document_root) { '/var/www/dummy' }
   let(:drupal_site_dir) { '/opt/drupal.org/dummy-f07cd86e789c50de12f7d1cdb41e6f4156fcc08b' }
+  let(:cron_file) { '/etc/cron.d/drupal-dummy' }
   let(:defaults) do
     {
         :core_version => '7.0'
@@ -24,6 +25,10 @@ describe 'drupal::site' do
     specify { should contain_file(files_dir).with_group('www-data') }
     specify { should contain_file(files_dir).with_mode('0644') }
     specify { should contain_file("#{drupal_site_dir}/sites/default/files").with_target(files_dir) }
+    specify { should contain_file(cron_file) }
+    specify { should contain_file(cron_file).with_ensure('present') }
+    specify { should contain_file(cron_file).with_content(/MAILTO=""/) }
+    specify { should contain_file(cron_file).with_content(/PATH=\/usr\/local\//) }
   end
 
   describe 'with core_version => 6.33' do
@@ -369,5 +374,32 @@ describe 'drupal::site' do
     let(:params) { defaults.merge({:document_root => '/path/to/file'}) }
 
     specify { should contain_file('/path/to/file') }
+  end
+
+  describe 'with cron_email_address => root@example.com' do
+    let(:params) { defaults.merge({:cron_email_address => 'root@example.com'}) }
+
+    specify { should contain_file(cron_file).with_content(/MAILTO="root@example.com"/) }
+  end
+
+  describe 'with title containing dots' do
+    let(:title) { 'example.com' }
+    let(:params) { defaults }
+
+    specify { should contain_file('/etc/cron.d/drupal-example-com') }
+  end
+
+  describe 'with cron_file_ensure => absent' do
+    let(:params) { defaults.merge(:cron_file_ensure => 'absent') }
+
+    specify { should contain_file(cron_file).with_ensure('absent') }
+  end
+
+  describe 'with invalid cron_file_ensure' do
+    let(:params) { defaults.merge({:cron_file_ensure => 'invalid'}) }
+
+    specify do
+      expect { should contain_file(cron_file) }.to raise_error(Puppet::Error, /cron_file_ensure/)
+    end
   end
 end

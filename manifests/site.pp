@@ -36,6 +36,15 @@
 #   Set to `true` to manage the `files` directory of a Drupal site. Set to `false` if the directory is already managed
 #   somewhere else.
 #
+# [*cron_email_address*]
+#   The email address to which send reports when the cron run fails.
+#
+# [*cron_file_path*]
+#   Override the default path of the cron file run hourly.
+#
+# [*cron_file_ensure*]
+#   Set the state of the cron file. Either `present` or `absent`.
+#
 # [*database_updates_disable*]
 #   Set to `true` to disable executing pending database updates.
 #
@@ -72,6 +81,9 @@ define drupal::site (
   $files_target             = undef,
   $files_mode               = '0644',
   $files_manage             = true,
+  $cron_email_address       = undef,
+  $cron_file_path           = undef,
+  $cron_file_ensure         = present,
   $database_updates_disable = undef,
   $makefile_content         = undef,
   $document_root            = undef,
@@ -144,6 +156,13 @@ define drupal::site (
     default => undef,
   }
 
+  $cron_command = "${drupal::drush_path} cron --quiet --root=${real_document_root}"
+  $cron_file_name_sanitized = regsubst("drupal-${title}", '\.', '-', 'G')
+  $real_cron_file_path = pick($cron_file_path, "/etc/cron.d/${cron_file_name_sanitized}")
+  if $cron_file_ensure !~ /^present|absent$/ {
+    fail("Drupal::Site[${title}]: cron_file_ensure must be either present or absent, got '${cron_file_ensure}'")
+  }
+
   file { $config_file:
     ensure  => file,
     content => $real_makefile_content,
@@ -204,6 +223,14 @@ define drupal::site (
     path    => $drupal::exec_paths,
   }
 
+  file { $real_cron_file_path:
+    ensure  => $cron_file_ensure,
+    content => template('drupal/cron.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+
   #
   # Ensure the order of events
   #
@@ -227,5 +254,7 @@ define drupal::site (
   Exec["update-drupal-${title}-database"] ->
 
   # and if everything goes well - update the document root
-  File[$real_document_root]
+  File[$real_document_root] ->
+
+  File[$real_cron_file_path]
 }
