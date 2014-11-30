@@ -98,6 +98,22 @@ drupal::site { 'example.com':
 }
 ```
 
+Configure the cron job:
+
+```
+drupal::site { 'example.com':
+  cron_email_address => 'webmaster',
+}
+```
+
+Disable the cron job (e.g. if it is managed separately):
+
+```
+drupal::site { 'example.com':
+  cron_file_ensure => absent,
+}
+```
+
 ##Limitations
 
 Drupal-specific
