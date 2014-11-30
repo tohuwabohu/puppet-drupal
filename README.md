@@ -102,7 +102,7 @@ drupal::site { 'example.com':
 
 Drupal-specific
 
-* No nulti-sites support
+* No multi-sites support
 * No backup configuration
 * Drupal site configuration (`settings.xml`) has to be provided
 
