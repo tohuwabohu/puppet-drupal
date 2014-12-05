@@ -8,11 +8,7 @@ describe 'drupal::site' do
   let(:document_root) { '/var/www/dummy' }
   let(:drupal_site_dir) { '/opt/drupal.org/dummy-f07cd86e789c50de12f7d1cdb41e6f4156fcc08b' }
   let(:cron_file) { '/etc/cron.d/drupal-dummy' }
-  let(:defaults) do
-    {
-        :core_version => '7.0'
-    }
-  end
+  let(:defaults)  {{ :core_version => '7.0' }}
 
   describe 'by default' do
     let(:params) { defaults }
