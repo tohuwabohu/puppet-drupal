@@ -1,0 +1,6 @@
+---
+drupal::composer_installer_url: https://getcomposer.org/installer
+
+drupal::drush_version: 6.4.0
+drupal::drush_archive_md5sum: 86f2772aaab4c112149490e5ac4ded59
+drupal::drush_concurrency_level: 1

@@ -20,6 +20,10 @@
             "version_requirement": "0.x"
         },
         {
+            "name": "ripienaar/module_data",
+            "version_requirement": "0.x"
+        },
+        {
             "name": "puppetlabs/stdlib",
             "version_requirement": "4.x"
         }
