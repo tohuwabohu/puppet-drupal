@@ -1,6 +1,21 @@
 ---
+drupal::install_dir: /opt/drupal.org
+drupal::config_dir: /etc/drush
+drupal::log_dir: /var/log/drush
+drupal::cache_dir: /var/cache/puppet/archives
+
+drupal::www_dir: /var/www
+drupal::www_process: www-data
+
+drupal::exec_paths: [/usr/local/sbin, /usr/local/bin, /usr/sbin, /usr/bin, /sbin, /bin]
+
+drupal::curl_package_name: curl
+drupal::php_cli_package_name: php5-cli
+
 drupal::composer_installer_url: https://getcomposer.org/installer
+drupal::composer_path: /usr/local/bin/composer
 
 drupal::drush_version: 6.4.0
 drupal::drush_archive_md5sum: 86f2772aaab4c112149490e5ac4ded59
 drupal::drush_concurrency_level: 1
+drupal::drush_path: /usr/local/bin/drush
