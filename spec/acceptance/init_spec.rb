@@ -18,7 +18,7 @@ describe 'drupal' do
     specify { should be_executable }
   end
 
-  describe file('/opt/drupal.org/drush-6.4.0') do
+  describe file('/opt/drupal.org/drush-6.5.0') do
     specify { should be_directory }
   end
 
