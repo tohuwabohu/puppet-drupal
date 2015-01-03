@@ -182,10 +182,11 @@ define drupal::site (
   }
 
   exec { "rebuild-drupal-${title}":
-    command => "${drush_build_site} || { rm -rf ${drupal_site_dir}; exit 99; }",
-    creates => $drupal_site_dir,
-    timeout => $timeout,
-    path    => $drupal::exec_paths,
+    command     => "${drush_build_site} || { rm -rf ${drupal_site_dir}; exit 99; }",
+    creates     => $drupal_site_dir,
+    environment => "HOME=${::root_home}",
+    timeout     => $timeout,
+    path        => $drupal::exec_paths,
   }
 
   file { $real_document_root:
