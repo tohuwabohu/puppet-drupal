@@ -9,5 +9,4 @@ HOSTS:
 
 CONFIG:
   log_level: info
-  trace_limit: 100
   type: git
