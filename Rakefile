@@ -24,21 +24,6 @@ RSpec::Core::RakeTask.new(:beaker) do |t|
   t.pattern = 'spec/acceptance'
 end
 
-desc 'Run acceptance tests against all beaker nodes'
-task :beaker_all do
-  hosts = Dir.glob(File.join('spec', 'acceptance', 'nodesets', '*.yml')).collect { |file| File.basename(file, '.yml') }
-  hosts.sort.each_with_index do |host,index|
-    ENV['BEAKER_set'] = host
-    puts "Testing host: #{host}"
-    if index == 0
-      Rake::Task['beaker'].invoke
-    else
-      Rake::Task['beaker'].reenable
-      Rake::Task['beaker'].invoke
-    end
-  end
-end
-
 desc 'Prepare running the acceptance tests by starting the Beaker nodes'
 task :beaker_prep do
   ENV['RS_DESTROY'] = 'no'
