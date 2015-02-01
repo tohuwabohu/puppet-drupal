@@ -128,20 +128,6 @@ The module has been tested on the following operating systems. Testing and patch
 
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-drupal.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-drupal)
 
-##Testing
-
-Run the unit tests
-
-```
-bundle exec rake spec
-```
-
-Run the acceptance tests
-
-```
-bundle exec rake acceptance
-```
-
 ##Contributing
 
 1. Fork it
@@ -150,7 +136,15 @@ bundle exec rake acceptance
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+###Development
 
-##Contributors
+This project uses rspec-puppet and beaker to ensure the module works as expected and to prevent regressions.
 
-The list of contributors can be found on [GitHub](https://github.com/tohuwabohu/puppet-drupal/graphs/contributors).
+```
+gem install bundler
+bundle install --path vendor
+
+bundle exec rake spec
+bundle exec rake beaker
+```
+(note: use `RS_PROVISION=no` and `RS_DESTROY=no` to control beaker default behaviour)
