@@ -111,7 +111,7 @@ GEM
     puppet-blacksmith (3.1.1)
       puppet (>= 2.7.16)
       rest-client
-    puppet-lint (0.3.2)
+    puppet-lint (1.1.0)
     puppet-syntax (1.1.1)
       puppet (>= 2.7.0)
       rake
@@ -170,7 +170,7 @@ DEPENDENCIES
   mime-types (< 2.0)
   puppet (~> 3.7.3)
   puppet-blacksmith (~> 3.1.1)
-  puppet-lint (~> 0.3.2)
+  puppet-lint (~> 1.1.0)
   puppet-syntax (~> 1.1.1)
   puppetlabs_spec_helper (~> 0.8.2)
   rake (~> 10.1.1)
