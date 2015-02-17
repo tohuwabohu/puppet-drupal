@@ -77,4 +77,12 @@ class drupal::install inherits drupal {
     target  => "${drush_install_dir}/drush",
     require => Exec['install-drush-dependencies'],
   }
+
+  file { $drupal::update_script_path:
+    ensure  => file,
+    content => template($drupal::update_script_template),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+  }
 }

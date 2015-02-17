@@ -41,6 +41,12 @@
 # [*drush_concurrency_level*]
 #   Set the number of concurrent projects that will be processed at the same time.
 #
+# [*update_script_path*]
+#   Set the path of the script which is executed when the Drupal database needs to run outstanding upgrade tasks.
+#
+# [*update_script_template*]
+#   Set the path to the template file that is used when creating the update script.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -65,6 +71,8 @@ class drupal (
   $drush_archive_md5sum,
   $drush_path,
   $drush_concurrency_level,
+  $update_script_path,
+  $update_script_template,
 ) {
 
   validate_absolute_path($install_dir)
@@ -74,6 +82,7 @@ class drupal (
   validate_absolute_path($cache_dir)
   validate_absolute_path($composer_path)
   validate_absolute_path($drush_path)
+  validate_absolute_path($update_script_path)
 
   class { 'drupal::install': }
 }
