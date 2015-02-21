@@ -3,14 +3,11 @@ include TestDependencies
 
 describe 'drupal' do
   specify 'should provision with no errors' do
-    pp = <<-EOS
-      # test manifest
-      class { 'drupal': }
-    EOS
+    apply_manifest(with_test_dependencies("class { 'drupal': }"), :catch_failures => true)
+  end
 
-    # Run it twice and test for idempotency
-    apply_manifest(with_test_dependencies(pp), :catch_failures => true)
-    apply_manifest(with_test_dependencies(pp), :catch_changes => true)
+  specify 'should be idempotent' do
+    apply_manifest(with_test_dependencies("class { 'drupal': }"), :catch_changes => true)
   end
 
   describe file('/usr/local/bin/composer') do
