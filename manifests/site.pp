@@ -204,8 +204,8 @@ define drupal::site (
   }
 
   file { $real_files_path:
-    ensure  => link,
-    target  => $real_files_target,
+    ensure => link,
+    target => $real_files_target,
   }
 
   file { "${drupal_site_dir}/sites/default/settings.php":
