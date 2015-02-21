@@ -11,6 +11,7 @@
 
 set -eu
 
+DRUSH=<%= scope.lookupvar('::drupal::drush_path') %>
 ROOT=$1
 ARGS="--verbose --root=${ROOT}"
 
@@ -25,12 +26,12 @@ then
 fi
 
 # enable maintenance mode
-drush vset site_offline 1 $ARGS
+$DRUSH vset site_offline 1 $ARGS
 
 # apply outstanding update tasks
-drush updatedb --yes $ARGS
+$DRUSH updatedb --yes $ARGS
 
-drush cron $ARGS || true
+$DRUSH cron $ARGS || true
 
 # disable maintenance mode
-drush vset site_offline 0 $ARGS
+$DRUSH vset site_offline 0 $ARGS
