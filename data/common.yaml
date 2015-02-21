@@ -19,3 +19,6 @@ drupal::drush_version: 6.5.0
 drupal::drush_archive_md5sum: 81d0110769b8e3102917ad4600e0ba17
 drupal::drush_concurrency_level: 1
 drupal::drush_path: /usr/local/bin/drush
+
+drupal::update_script_path: /usr/local/sbin/drupal-update.sh
+drupal::update_script_template: drupal/drupal-update.sh.erb
