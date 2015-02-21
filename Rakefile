@@ -17,6 +17,8 @@ PuppetLint::RakeTask.new :lint do |config|
   config.fail_on_warnings = true
   config.ignore_paths = exclude_paths
 end
+# Puppet-Lint 1.1.0 as well ...
+PuppetLint.configuration.relative = true
 
 PuppetSyntax.exclude_paths = exclude_paths
 
