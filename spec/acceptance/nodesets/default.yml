@@ -1,11 +1,11 @@
 HOSTS:
-  debian-73-x64:
+  debian-76-64:
     roles:
       - master
     platform: debian-7-amd64
-    box: debian-73-x64-virtualbox-nocm
-    box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box
     hypervisor: vagrant
+    box: puppetlabs/debian-7.6-64-puppet
+    box_url: https://vagrantcloud.com/puppetlabs/boxes/debian-7.6-64-puppet
 
 CONFIG:
   log_level: info
