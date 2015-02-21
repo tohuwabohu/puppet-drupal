@@ -1,7 +1,8 @@
 ##2015-XX-YY - Release 1.1.0
 ###Summary
 
-The Drupal site is put into maintenance mode before outstanding database updates are applied.
+* The Drupal site is put into maintenance mode before outstanding database updates are applied
+* Workaround suhosin blocking composer execution on Debian 6
 
 ##2015-02-01 - Release 1.0.0
 ###Summary
