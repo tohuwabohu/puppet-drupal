@@ -147,4 +147,5 @@ bundle install --path vendor
 bundle exec rake spec
 bundle exec rake beaker
 ```
-(note: use `RS_PROVISION=no` and `RS_DESTROY=no` to control beaker default behaviour)
+(note: see [Beaker - Supported ENV variables](https://github.com/puppetlabs/beaker/wiki/How-to-Write-a-Beaker-Test-for-a-Module#beaker-rspec-details)
+for a list of environment variables to control the default behaviour of Beaker)
