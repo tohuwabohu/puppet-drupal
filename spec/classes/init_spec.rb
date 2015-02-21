@@ -9,6 +9,7 @@ describe 'drupal' do
     specify { should contain_file('/opt/drupal.org').with_ensure('directory') }
     specify { should contain_file('/etc/drush').with_ensure('directory') }
     specify { should contain_file('/var/log/drush').with_ensure('directory') }
+    specify { should contain_file('/usr/local/sbin/drupal-update.sh').with_ensure('file') }
     specify { should contain_archive('drush-6.5.0') }
   end
 
