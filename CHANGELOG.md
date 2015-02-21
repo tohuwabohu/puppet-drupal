@@ -3,6 +3,7 @@
 
 * The Drupal site is put into maintenance mode before outstanding database updates are applied
 * Workaround suhosin blocking composer execution on Debian 6
+* Support Ubuntu 12.04 and 14.04
 
 ##2015-02-01 - Release 1.0.0
 ###Summary
