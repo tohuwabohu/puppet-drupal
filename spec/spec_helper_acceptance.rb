@@ -4,7 +4,6 @@ require 'helpers/dependencies'
 
 unless ENV['BEAKER_PROVISION'] == 'no'
   hosts.each do |host|
-    install_puppet if host['platform'] =~ /debian-6-amd64/ # workaround for broken vagrant images, see yml file
     install_package host, 'git'
     install_package host, 'unzip'
   end
