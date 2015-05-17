@@ -10,7 +10,7 @@ describe 'drupal' do
     specify { should contain_file('/etc/drush').with_ensure('directory') }
     specify { should contain_file('/var/log/drush').with_ensure('directory') }
     specify { should contain_file('/usr/local/sbin/drupal-update.sh').with_ensure('file') }
-    specify { should contain_archive('drush-6.5.0') }
+    specify { should contain_archive('drush-6.6.0') }
   end
 
   describe 'with install_dir => /path/to/dir' do
@@ -40,6 +40,6 @@ describe 'drupal' do
   describe 'with drush_archive_md5sum => beef' do
     let(:params) { {:drush_archive_md5sum => 'beef'} }
 
-    specify { should contain_archive('drush-6.5.0').with_digest_string('beef') }
+    specify { should contain_archive('drush-6.6.0').with_digest_string('beef') }
   end
 end
