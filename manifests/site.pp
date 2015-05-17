@@ -156,7 +156,7 @@ define drupal::site (
     default => undef,
   }
 
-  $cron_command = "${drupal::drush_path} cron --quiet --root=${real_document_root}"
+  $cron_command = "${drupal::drush_path} cron --quiet --root=${real_document_root} --uri=${title}"
   $cron_file_name_sanitized = regsubst("drupal-${title}", '\.', '-', 'G')
   $real_cron_file_path = pick($cron_file_path, "/etc/cron.d/${cron_file_name_sanitized}")
   if $cron_file_ensure !~ /^present|absent$/ {
