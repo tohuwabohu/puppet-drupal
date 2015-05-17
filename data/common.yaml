@@ -15,8 +15,8 @@ drupal::php_cli_package_name: php5-cli
 drupal::composer_installer_url: https://getcomposer.org/installer
 drupal::composer_path: /usr/local/bin/composer
 
-drupal::drush_version: 6.5.0
-drupal::drush_archive_md5sum: 81d0110769b8e3102917ad4600e0ba17
+drupal::drush_version: 6.6.0
+drupal::drush_archive_md5sum: bfe556917f29e2d3c25dda8ecde96281
 drupal::drush_concurrency_level: 1
 drupal::drush_path: /usr/local/bin/drush
 
