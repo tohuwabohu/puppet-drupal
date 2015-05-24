@@ -17,7 +17,7 @@ class drupal::install inherits drupal {
   $drush_download_url = "https://github.com/drush-ops/drush/archive/${drupal::drush_version}.tar.gz"
   $drush_install_dir = "${drupal::install_dir}/${drush_archive}"
 
-  if $::lsbdistid == 'Debian' and $::lsbmajdistrelease == '6' {
+  if $::osfamily == 'Debian' and $::lsbmajdistrelease == '6' {
     # Add phar extension to suhosin's whitelist
     $install_composer_command = "curl -sS ${drupal::composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=`basename ${drupal::composer_path}`"
     $install_drush_dependencies_command = "php -d suhosin.executor.include.whitelist=phar ${drupal::composer_path} --working-dir=${drush_install_dir} install"
