@@ -34,6 +34,13 @@ class drupal::install inherits drupal {
     mode   => '0644',
   }
 
+  file { $drupal::cache_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
   file { $drupal::config_dir:
     ensure => directory,
     owner  => 'root',
