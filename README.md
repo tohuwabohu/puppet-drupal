@@ -120,7 +120,7 @@ Drupal-specific
 
 * No multi-sites support
 * No backup configuration
-* Drupal site configuration (`settings.xml`) has to be provided
+* Drupal site configuration (`settings.php`) has to be provided
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
