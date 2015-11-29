@@ -116,6 +116,20 @@ drupal::site { 'example.com':
 
 ##Limitations
 
+Puppet-specific
+
+* The Puppet module [archive](https://forge.puppetlabs.com/camptocamp/archive) is used to download and extract drush
+from github. The archvie module caches all files in a directory that is shared between all consumers. Hence the cache
+directory needs to be managed in a central location. If you stick with the default configuration for the `cache_dir`,
+add the following snippet to your Puppet manifest:
+
+```
+ file { ['/var/cache/puppet', '/var/cache/puppet/archives']:
+    ensure  => directory,
+    require => Package['puppet']
+  }
+```
+
 Drupal-specific
 
 * No multi-sites support
