@@ -9,7 +9,7 @@ Install and manage different versions of Drupal including modules and sites.
 The module uses [Drush](https://github.com/drush-ops/drush) and the Drush makefiles to manage a Drupal site
 configuration. So everytime any of the Puppet configuration changes, the whole site will be rebuild from ground. To be
 able to do this, the site configuration (`settings.php`) and `files` have to be kept outside of the actual Drupal site.
-Furthermore, the current state doesn't support multi-site configurations.
+Furthermore, multi-site configurations are currently not supported.
 
 The structure of the three major properties (`modules`, `themes` and `libraries`) translates directly to the Drush
 makefile format. See [here](https://github.com/drush-ops/drush/blob/master/examples/example.make) for an example of the
