@@ -7,9 +7,8 @@ describe 'drupal-7.x' do
     class { 'drupal': }
 
     drupal::site { 'drupal-7.x':
-      core_version             => '7.32',
-      database_updates_disable => true,
-      modules                  => {
+      core_version => '7.32',
+      modules      => {
         'ctools'   => {
           'download' => {
             'type'     => 'git',
@@ -25,7 +24,7 @@ describe 'drupal-7.x' do
         },
         'views'    => '3.8',
       },
-      themes                   => {
+      themes       => {
         'omega' => '4.3',
         'zen'   => {
           'download' => {
@@ -35,7 +34,7 @@ describe 'drupal-7.x' do
           },
         },
       },
-      libraries                => {
+      libraries    => {
         'jquery_ui' => {
           'download' => {
             'type' => 'file',

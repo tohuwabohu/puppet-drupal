@@ -1,3 +1,9 @@
+##2015-11-29 - Release 1.2.1
+###Summary
+
+Setting up a site from scratch will no longer fail the Puppet run (issue #3). The pending database updates are now only
+applied if the site has been fully set up.
+
 ##2015-05-17 - Release 1.2.0
 ###Summary
 

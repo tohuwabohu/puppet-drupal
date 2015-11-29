@@ -147,6 +147,7 @@ define drupal::site (
 
   $drush_build_site = "${drupal::drush_path} make --verbose --concurrency=${drupal::drush_concurrency_level} ${config_file} ${drupal_site_dir} >> ${drupal::log_dir}/${title}.log 2>&1"
   $drush_update_database = "${drupal::update_script_path} ${drupal_site_dir} ${title} >> ${drupal::log_dir}/${title}.log 2>&1"
+  $drush_check_database_connectivity = "${drupal::drush_path} status bootstrap --field-labels=0 --root=${drupal_site_dir} 2>&1"
   $drush_check_pending_database_updates = "${drupal::drush_path} updatedb-status --pipe --root=${drupal_site_dir} 2>&1"
 
   $real_database_updates_disable = $database_updates_disable ? {
@@ -215,9 +216,15 @@ define drupal::site (
 
   exec { "update-drupal-${title}-database":
     command => $drush_update_database,
-    # The check command is expected to exit with 0 only when there are no outstanding database updates. If there are
-    # issues connecting to the database or pending updates, the check command should exit with 1.
-    unless  => "test -z \"`${drush_check_pending_database_updates}`\"" ,
+    # The command is only executed when all conditions return an exit code 0.
+    onlyif  => [
+        # Check the site is configured; bootstrap is only emitted when Drupal is fully set up
+        "test -n \"`${drush_check_database_connectivity}`\"",
+
+        # Check there are pending updates to be executed; if Drupal is not set up properly, this test will also return
+        # true (bootstrap has failed); hence the status safe-guard above.
+        "test -n \"`${drush_check_pending_database_updates}`\"" ,
+    ],
     user    => $process,
     timeout => $timeout,
     noop    => $real_database_updates_disable,

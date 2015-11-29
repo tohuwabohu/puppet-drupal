@@ -7,9 +7,8 @@ describe 'drupal-6.x' do
     class { 'drupal': }
 
     drupal::site { 'drupal-6.x':
-      core_version             => '6.33',
-      database_updates_disable => true,
-      modules                  => {
+      core_version => '6.33',
+      modules      => {
         'cck'   => {
           'download' => {
             'type' => 'file',
@@ -19,7 +18,7 @@ describe 'drupal-6.x' do
         },
         'views' => '2.16',
       },
-      themes                   => {
+      themes       => {
         'marinelli' => {
           'download' => {
             'type'     => 'git',

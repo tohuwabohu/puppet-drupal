@@ -4,6 +4,7 @@ require 'helpers/dependencies'
 
 unless ENV['BEAKER_PROVISION'] == 'no'
   hosts.each do |host|
+    install_puppet
     install_package host, 'git'
     install_package host, 'unzip'
   end
