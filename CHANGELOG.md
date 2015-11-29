@@ -1,10 +1,12 @@
 ##2015-11-29 - Release 1.2.1
 ###Summary
 
-Setting up a site from scratch will no longer fail the Puppet run (issue #3). The pending database updates are now only
-applied if the site has been fully set up.
+Setting up a site from scratch will no longer fail the Puppet run
+([issue #3](https://github.com/tohuwabohu/puppet-drupal/issues/3)). The pending database updates are now only applied
+if the site has been fully set up.
 
-Puppet-specific limitations caused by the usage of the archive module have been documented as well (issue #4).
+Puppet-specific limitations caused by the usage of the archive module have been documented as well
+([issue #4](https://github.com/tohuwabohu/puppet-drupal/issues/4)).
 
 ##2015-05-17 - Release 1.2.0
 ###Summary
