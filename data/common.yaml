@@ -2,7 +2,7 @@
 drupal::install_dir: /opt/drupal.org
 drupal::config_dir: /etc/drush
 drupal::log_dir: /var/log/drush
-drupal::cache_dir: /var/cache/puppet/archives
+drupal::cache_dir: $puppet::vardir/archives
 
 drupal::www_dir: /var/www
 drupal::www_process: www-data

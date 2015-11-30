@@ -32,7 +32,10 @@ fi
 ARGS="--verbose --root=${ROOT} --uri=${URI}"
 
 # enable maintenance mode
-$DRUSH vset site_offline 1 $ARGS
+$DRUSH vset maintenance_mode 1 $ARGS
+
+# Clear caches
+$DRUSH cc all $ARGS
 
 # apply outstanding update tasks
 $DRUSH updatedb --yes $ARGS
