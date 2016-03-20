@@ -124,10 +124,10 @@ directory needs to be managed in a central location. If you stick with the defau
 add the following snippet to your Puppet manifest:
 
 ```
- file { ['/var/cache/puppet', '/var/cache/puppet/archives']:
-    ensure  => directory,
-    require => Package['puppet']
-  }
+file { ['/var/cache/puppet', '/var/cache/puppet/archives']:
+  ensure  => directory,
+  require => Package['puppet']
+}
 ```
 
 Drupal-specific
