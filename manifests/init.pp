@@ -70,7 +70,6 @@ class drupal (
   validate_absolute_path($log_dir)
   validate_absolute_path($www_dir)
   validate_absolute_path($cache_dir)
-  validate_string($composer_command_name)
   validate_absolute_path($drush_path)
   validate_absolute_path($update_script_path)
 
