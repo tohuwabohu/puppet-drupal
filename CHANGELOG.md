@@ -1,3 +1,10 @@
+##2016-03-20 - Release 2.0.0
+###Summary
+
+* Bump gem dependencies to the latest version
+* Update travis test matrix and add support for Puppet 4
+* Replace VirtualBox with Docker for acceptance tests
+
 ##2015-11-29 - Release 1.2.1
 ###Summary
 

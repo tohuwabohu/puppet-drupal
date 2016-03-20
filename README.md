@@ -124,10 +124,10 @@ directory needs to be managed in a central location. If you stick with the defau
 add the following snippet to your Puppet manifest:
 
 ```
- file { ['/var/cache/puppet', '/var/cache/puppet/archives']:
-    ensure  => directory,
-    require => Package['puppet']
-  }
+file { ['/var/cache/puppet', '/var/cache/puppet/archives']:
+  ensure  => directory,
+  require => Package['puppet']
+}
 ```
 
 Drupal-specific
@@ -138,8 +138,8 @@ Drupal-specific
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
-* Debian 6.0 (Squeeze)
 * Debian 7.0 (Wheezy)
+* Debian 8.0 (Jessie)
 * Ubuntu 12.04 (Precise Pangolin)
 * Ubuntu 14.04 (Trusty Tahr)
 
@@ -164,5 +164,5 @@ bundle install --path vendor
 bundle exec rake spec
 bundle exec rake beaker
 ```
-(note: see [Beaker - Supported ENV variables](https://github.com/puppetlabs/beaker/wiki/How-to-Write-a-Beaker-Test-for-a-Module#beaker-rspec-details)
+(note: see [Beaker - Supported ENV variables](https://github.com/puppetlabs/beaker-rspec/blob/master/README.md)
 for a list of environment variables to control the default behaviour of Beaker)
