@@ -30,7 +30,7 @@ Further more, the test infrastructure has been overhauled:
 * Bump Puppet module dependencies to the latest version
 * Update travis test matrix and add support for Puppet 4
 * Replace VirtualBox with Docker for acceptance tests
-* Remove Debian 6 which is no longer officially supported
+* Remove Debian 6 which is no longer officially supported; Debian 8 has been added instead
 
 ##2015-11-29 - Release 1.2.1
 ###Summary
