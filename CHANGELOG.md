@@ -1,6 +1,27 @@
 ##2016-03-20 - Release 2.0.0
 ###Summary
 
+The module will no longer manage the [composer](https://getcomposer.org/) installation. Instead it will rely on the
+[willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) module.
+
+As a consequence, a couple of parameters have been removed from the `drupal` class:
+
+* `curl_package_name`
+* `php_cli_package_name`
+* `composer_installer_url`
+* `composer_path`
+
+If you've used one of the parameters in your Puppet configuration please remove them before upgrading or consider
+tweaking `composer` class.
+
+#### Bugfix
+
+* Installation of composer fails due to missing HOME environment variable ([issue #6](https://github.com/tohuwabohu/puppet-drupal/issues/6))
+
+#### Improvements
+
+The test infrastructure has been overhauled:
+
 * Bump gem dependencies to the latest version
 * Update travis test matrix and add support for Puppet 4
 * Replace VirtualBox with Docker for acceptance tests

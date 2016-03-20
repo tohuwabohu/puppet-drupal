@@ -3,11 +3,18 @@ fixtures:
     archive:
       repo: "https://github.com/camptocamp/puppet-archive.git"
       ref: "0.3.1"
+    composer:
+      repo: "https://github.com/willdurand/puppet-composer.git"
+      ref: "v1.1.1"
     module_data:
       repo: "https://github.com/ripienaar/puppet-module-data.git"
       ref: "0.0.3"
     stdlib:
       repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
       ref: "4.3.2"
+    # transitive dependencies
+    wget:
+      repo: "https://github.com/maestrodev/puppet-wget.git"
+      ref: "v1.7.3"
   symlinks:
     drupal: "#{source_dir}"
