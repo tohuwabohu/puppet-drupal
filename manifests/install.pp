@@ -12,20 +12,11 @@
 #
 class drupal::install inherits drupal {
 
-  $composer_install_dir = dirname($drupal::composer_path)
+  require composer
+
   $drush_archive = "drush-${drupal::drush_version}"
   $drush_download_url = "https://github.com/drush-ops/drush/archive/${drupal::drush_version}.tar.gz"
   $drush_install_dir = "${drupal::install_dir}/${drush_archive}"
-
-  if $::lsbdistid == 'Debian' and $::lsbmajdistrelease == '6' {
-    # Add phar extension to suhosin's whitelist
-    $install_composer_command = "curl -sS ${drupal::composer_installer_url} | php -d suhosin.executor.include.whitelist=phar -- --install-dir=${composer_install_dir} --filename=`basename ${drupal::composer_path}`"
-    $install_drush_dependencies_command = "php -d suhosin.executor.include.whitelist=phar ${drupal::composer_path} --working-dir=${drush_install_dir} install"
-  }
-  else {
-    $install_composer_command = "curl -sS ${drupal::composer_installer_url} | php -- --install-dir=${composer_install_dir} --filename=`basename ${drupal::composer_path}`"
-    $install_drush_dependencies_command = "${drupal::composer_path} --working-dir=${drush_install_dir} install"
-  }
 
   file { $drupal::install_dir:
     ensure => directory,
@@ -48,16 +39,6 @@ class drupal::install inherits drupal {
     mode   => '0644',
   }
 
-  exec { 'install-composer':
-    command => $install_composer_command,
-    creates => $drupal::composer_path,
-    path    => $drupal::exec_paths,
-    require => [
-      Package[$drupal::curl_package_name],
-      Package[$drupal::php_cli_package_name],
-    ],
-  }
-
   archive { $drush_archive:
     ensure           => present,
     url              => $drush_download_url,
@@ -73,14 +54,11 @@ class drupal::install inherits drupal {
   }
 
   exec { 'install-drush-dependencies':
-    command     => $install_drush_dependencies_command,
+    command     => "composer --working-dir=${drush_install_dir} install",
     creates     => "${drush_install_dir}/vendor",
     path        => $drupal::exec_paths,
     environment => "HOME=${::root_home}",
-    require     => [
-      Archive[$drush_archive],
-      Exec['install-composer'],
-    ],
+    require     => Archive[$drush_archive],
   }
 
   file { $drupal::drush_path:

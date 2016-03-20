@@ -26,12 +26,6 @@
 # [*exec_paths*]
 #   Set the paths used to search for executables when invoking exec resources.
 #
-# [*composer_installer_url*]
-#   Set the url where to download the composer installer from.
-#
-# [*composer_path*]
-#   Set the full path (including filename) where to install the composer executable.
-#
 # [*drush_version*]
 #   Set the version (git revision) to be installed.
 #
@@ -63,10 +57,6 @@ class drupal (
   $www_process,
   $cache_dir,
   $exec_paths,
-  $curl_package_name,
-  $php_cli_package_name,
-  $composer_installer_url,
-  $composer_path,
   $drush_version,
   $drush_archive_md5sum,
   $drush_path,
@@ -80,7 +70,6 @@ class drupal (
   validate_absolute_path($log_dir)
   validate_absolute_path($www_dir)
   validate_absolute_path($cache_dir)
-  validate_absolute_path($composer_path)
   validate_absolute_path($drush_path)
   validate_absolute_path($update_script_path)
 
