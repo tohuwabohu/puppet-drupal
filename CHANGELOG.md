@@ -1,8 +1,8 @@
 ##2016-03-20 - Release 2.0.0
 ###Summary
 
-The module will no longer manage the [composer](https://getcomposer.org/) installation. Instead it will rely on the
-[willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) module.
+**Breaking change:** The module will no longer manage the [composer](https://getcomposer.org/) installation. Instead it
+will rely on the [willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) module.
 
 As a consequence, a couple of parameters have been removed from the `drupal` class:
 
@@ -12,7 +12,7 @@ As a consequence, a couple of parameters have been removed from the `drupal` cla
 * `composer_path`
 
 If you've used one of the parameters in your Puppet configuration please remove them before upgrading or consider
-tweaking `composer` class.
+tweaking the `composer` class.
 
 #### Bugfix
 
@@ -20,11 +20,17 @@ tweaking `composer` class.
 
 #### Improvements
 
-The test infrastructure has been overhauled:
+* Replace [ripienaar/module_data](https://forge.puppetlabs.com/ripienaar/module_data) with `params.pp`; the module is
+  unlikly to work with Puppet 4 (see [Native Puppet 4 Data in Modules](https://www.devco.net/archives/2016/01/08/native-puppet-4-data-in-modules.php))
+  and in order to not break Puppet 3 support it is easier to just stick with a simple `params.pp` for the moment
+
+Further more, the test infrastructure has been overhauled:
 
 * Bump gem dependencies to the latest version
+* Bump Puppet module dependencies to the latest version
 * Update travis test matrix and add support for Puppet 4
 * Replace VirtualBox with Docker for acceptance tests
+* Remove Debian 6 which is no longer officially supported
 
 ##2015-11-29 - Release 1.2.1
 ###Summary

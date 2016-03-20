@@ -50,20 +50,20 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal (
-  $install_dir,
-  $config_dir,
-  $log_dir,
-  $www_dir,
-  $www_process,
-  $cache_dir,
-  $exec_paths,
-  $drush_version,
-  $drush_archive_md5sum,
-  $drush_path,
-  $drush_concurrency_level,
-  $update_script_path,
-  $update_script_template,
-) {
+  $install_dir             = $drupal::params::install_dir,
+  $config_dir              = $drupal::params::config_dir,
+  $log_dir                 = $drupal::params::log_dir,
+  $www_dir                 = $drupal::params::www_dir,
+  $www_process             = $drupal::params::www_process,
+  $cache_dir               = $drupal::params::cache_dir,
+  $exec_paths              = $drupal::params::exec_paths,
+  $drush_version           = $drupal::params::drush_version,
+  $drush_archive_md5sum    = $drupal::params::drush_archive_md5sum,
+  $drush_path              = $drupal::params::drush_path,
+  $drush_concurrency_level = $drupal::params::drush_concurrency_level,
+  $update_script_path      = $drupal::params::update_script_path,
+  $update_script_template  = $drupal::params::update_script_template,
+) inherits drupal::params {
 
   validate_absolute_path($install_dir)
   validate_absolute_path($config_dir)
