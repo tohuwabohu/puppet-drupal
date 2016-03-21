@@ -69,8 +69,8 @@ class drupal::install inherits drupal {
   ->
 
   file { $drupal::drush_path:
-    ensure  => link,
-    target  => $drush_install_path,
+    ensure => link,
+    target => $drush_install_path,
   }
 
   file { $drupal::update_script_path:
