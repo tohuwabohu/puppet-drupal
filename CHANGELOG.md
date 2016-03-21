@@ -1,7 +1,8 @@
 ##2016-03-22 - Release 3.0.0
 ###Summary
 
-Upgrade Drush from 6.6.0 to 8.0.5. This adds supports for Drupal 8.
+Upgrade Drush from 6.6.0 to 8.0.5 ([issue #9](https://github.com/tohuwabohu/puppet-drupal/issues/9)). This adds support
+for Drupal 8.
 
 **Breaking change:** The module will no longer download and install the drush tarball from GitHub. Instead the
 [phar archive](https://secure.php.net/manual/en/intro.phar.php) provided by the Drush project is installed. This archive
