@@ -8,7 +8,7 @@ for Drupal 8.
 [phar archive](https://secure.php.net/manual/en/intro.phar.php) provided by the Drush project is installed. This archive
 contains all necessary dependencies in one file. To ensure file integrity the checksum is verified post download.
 
-As a consequence the `cache_dir` parameter is no longer required as no archive has to be stored in a temporary location.
+As a result the `cache_dir` parameter is no longer required as no archive has to be stored in a temporary location.
 Also the dependency on [willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) has been dropped.
 
 On top of that the `drush_archive_md5sum` parameter has been replaced with `drush_archive_checksum` and
