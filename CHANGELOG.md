@@ -1,4 +1,19 @@
-##2016-03-20 - Release 2.0.0
+##2016-03-22 - Release 3.0.0
+###Summary
+
+Upgrade Drush from 6.6.0 to 8.0.5. This adds supports for Drupal 8.
+
+**Breaking change:** The module will no longer download and install the drush tarball from GitHub. Instead the
+[phar archive](https://secure.php.net/manual/en/intro.phar.php) provided by the Drush project is installed. This archive
+contains all necessary dependencies in one file. To ensure file integrity the checksum is verified post download.
+
+As a consequence the `cache_dir` parameter is no longer required as no archive has to be stored in a temporary location.
+Also the dependency on [willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) has been dropped.
+
+On top of that the `drush_archive_md5sum` parameter has been replaced with `drush_archive_checksum` and
+`drush_archive_checksum_type`, the default checksum type is now `SHA256`.
+
+##2016-03-21 - Release 2.0.0
 ###Summary
 
 **Breaking change:** The module will no longer manage the [composer](https://getcomposer.org/) installation. Instead it

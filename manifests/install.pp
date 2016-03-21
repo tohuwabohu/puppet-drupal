@@ -12,11 +12,11 @@
 #
 class drupal::install inherits drupal {
 
-  require composer
+  $drush_download_url = "https://github.com/drush-ops/drush/releases/download/${drupal::drush_version}/drush.phar"
 
-  $drush_archive = "drush-${drupal::drush_version}"
-  $drush_download_url = "https://github.com/drush-ops/drush/archive/${drupal::drush_version}.tar.gz"
-  $drush_install_dir = "${drupal::install_dir}/${drush_archive}"
+  $drush_filename = "drush-${drupal::drush_version}.phar"
+  $drush_install_dir = "${drupal::install_dir}/drush"
+  $drush_install_path = "${drush_install_dir}/${drush_filename}"
 
   file { $drupal::install_dir:
     ensure => directory,
@@ -39,32 +39,38 @@ class drupal::install inherits drupal {
     mode   => '0644',
   }
 
-  archive { $drush_archive:
-    ensure           => present,
-    url              => $drush_download_url,
-    digest_string    => $drupal::drush_archive_md5sum,
-    target           => $drupal::install_dir,
-    src_target       => $drupal::cache_dir,
-    timeout          => 60,
-    follow_redirects => true,
-    require          => [
-      File[$drupal::install_dir],
-      File[$drupal::cache_dir]
-    ],
+  file { $drush_install_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
-  exec { 'install-drush-dependencies':
-    command     => "composer --working-dir=${drush_install_dir} install",
-    creates     => "${drush_install_dir}/vendor",
-    path        => $drupal::exec_paths,
-    environment => "HOME=${::root_home}",
-    require     => Archive[$drush_archive],
+  archive::download { $drush_filename:
+    ensure           => present,
+    url              => $drush_download_url,
+    digest_string    => $drupal::drush_archive_checksum,
+    digest_type      => $drupal::drush_archive_checksum_type,
+    src_target       => $drush_install_dir,
+    timeout          => 60,
+    follow_redirects => true,
+    require          => File[$drupal::install_dir],
   }
+
+  ->
+
+  file { $drush_install_path:
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  ->
 
   file { $drupal::drush_path:
     ensure  => link,
-    target  => "${drush_install_dir}/drush",
-    require => Exec['install-drush-dependencies'],
+    target  => $drush_install_path,
   }
 
   file { $drupal::update_script_path:

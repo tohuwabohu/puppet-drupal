@@ -20,14 +20,17 @@
 # [*www_process*]
 #   Set the name of the process that is executing the Drupal site.
 #
-# [*cache_dir*]
-#   Set the path to the directory where to cache downloaded drush archives (like drush).
-#
 # [*exec_paths*]
 #   Set the paths used to search for executables when invoking exec resources.
 #
 # [*drush_version*]
 #   Set the version (git revision) to be installed.
+#
+# [*drush_archive_checksum*]
+#   Set the checksum of the drush archive to be installed.
+#
+# [*drush_archive_checksum_type*]
+#   Set the checksum type (e.g. `sha256` or `md5`) of the checksum.
 #
 # [*drush_path*]
 #   Set the full path (including filename) where the drush executable should be installed to.
@@ -50,26 +53,29 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal (
-  $install_dir             = $drupal::params::install_dir,
-  $config_dir              = $drupal::params::config_dir,
-  $log_dir                 = $drupal::params::log_dir,
-  $www_dir                 = $drupal::params::www_dir,
-  $www_process             = $drupal::params::www_process,
-  $cache_dir               = $drupal::params::cache_dir,
-  $exec_paths              = $drupal::params::exec_paths,
-  $drush_version           = $drupal::params::drush_version,
-  $drush_archive_md5sum    = $drupal::params::drush_archive_md5sum,
-  $drush_path              = $drupal::params::drush_path,
-  $drush_concurrency_level = $drupal::params::drush_concurrency_level,
-  $update_script_path      = $drupal::params::update_script_path,
-  $update_script_template  = $drupal::params::update_script_template,
+  $install_dir                 = $drupal::params::install_dir,
+  $config_dir                  = $drupal::params::config_dir,
+  $log_dir                     = $drupal::params::log_dir,
+  $www_dir                     = $drupal::params::www_dir,
+  $www_process                 = $drupal::params::www_process,
+  $exec_paths                  = $drupal::params::exec_paths,
+  $drush_version               = $drupal::params::drush_version,
+  $drush_archive_checksum      = $drupal::params::drush_archive_checksum,
+  $drush_archive_checksum_type = $drupal::params::drush_archive_checksum_type,
+  $drush_path                  = $drupal::params::drush_path,
+  $drush_concurrency_level     = $drupal::params::drush_concurrency_level,
+  $update_script_path          = $drupal::params::update_script_path,
+  $update_script_template      = $drupal::params::update_script_template,
 ) inherits drupal::params {
 
   validate_absolute_path($install_dir)
   validate_absolute_path($config_dir)
   validate_absolute_path($log_dir)
   validate_absolute_path($www_dir)
-  validate_absolute_path($cache_dir)
+  validate_string($www_process)
+  validate_string($drush_version)
+  validate_string($drush_archive_checksum)
+  validate_string($drush_archive_checksum_type)
   validate_absolute_path($drush_path)
   validate_absolute_path($update_script_path)
 

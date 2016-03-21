@@ -5,13 +5,7 @@ module TestDependencies
 
   def setup_manifest
     <<-EOS
-      $required_directories = [
-        '/var/cache/puppet',
-        '/var/cache/puppet/archives',
-        '/var/www',
-      ]
-
-      file { $required_directories:
+      file { '/var/www':
         ensure => directory,
       }
 
