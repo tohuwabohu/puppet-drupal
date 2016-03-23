@@ -1,15 +1,19 @@
-##2016-03-22 - Release 3.0.0
+##2016-03-23 - Release 3.0.0
 ###Summary
 
 Upgrade Drush from 6.6.0 to 8.0.5 ([issue #9](https://github.com/tohuwabohu/puppet-drupal/issues/9)). This adds support
 for Drupal 8.
 
-**Breaking change:** The module will no longer download and install the drush tarball from GitHub. Instead the
-[phar archive](https://secure.php.net/manual/en/intro.phar.php) provided by the Drush project is installed. This archive
-contains all necessary dependencies in one file. To ensure file integrity the checksum is verified post download.
+**Breaking change:** Drush 8 dropped support for PHP 5.3, please ensure at least PHP 5.4 is installed.
 
-As a result the `cache_dir` parameter is no longer required as no archive has to be stored in a temporary location.
-Also the dependency on [willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) has been dropped.
+####Improvements
+
+Beginning with version 8.x the Drush project started to publish Drush as a
+[phar archive](https://secure.php.net/manual/en/intro.phar.php). This archive contains all necessary dependencies in one
+file and makes the usage of composer redundant. To ensure file integrity the checksum is verified post download.
+
+As a result the dependency on [willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) has been dropped
+and code like the `cache_dir` parameter has been removed because a temporary download location is no longer necessary.
 
 On top of that the `drush_archive_md5sum` parameter has been replaced with `drush_archive_checksum` and
 `drush_archive_checksum_type`, the default checksum type is now `SHA256`.
@@ -30,11 +34,11 @@ As a consequence, a couple of parameters have been removed from the `drupal` cla
 If you've used one of the parameters in your Puppet configuration please remove them before upgrading or consider
 tweaking the `composer` class.
 
-#### Bugfix
+####Bugfix
 
 * Installation of composer fails due to missing HOME environment variable ([issue #6](https://github.com/tohuwabohu/puppet-drupal/issues/6))
 
-#### Improvements
+####Improvements
 
 * Replace [ripienaar/module_data](https://forge.puppetlabs.com/ripienaar/module_data) with `params.pp`; the module is
   unlikly to work with Puppet 4 (see [Native Puppet 4 Data in Modules](https://www.devco.net/archives/2016/01/08/native-puppet-4-data-in-modules.php))

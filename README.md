@@ -126,7 +126,7 @@ The module has been tested on the following operating systems. Testing and patch
 
 * Debian 7.0 (Wheezy)
 * Debian 8.0 (Jessie)
-* Ubuntu 12.04 (Precise Pangolin)
+* Ubuntu 12.04 (Precise Pangolin); upgrade to PHP 5.4 required
 * Ubuntu 14.04 (Trusty Tahr)
 
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-drupal.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-drupal)
