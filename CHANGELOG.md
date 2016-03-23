@@ -13,7 +13,7 @@ Beginning with version 8.x the Drush project started to publish Drush as a
 file and makes the usage of composer redundant. To ensure file integrity the checksum is verified post download.
 
 As a result the dependency on [willdurand/composer](https://forge.puppetlabs.com/willdurand/composer) has been dropped
-and code like the `cache_dir` parameter has been removed because a temporary download location is no longer necessary.
+and code like the `cache_dir` parameter has been removed.
 
 On top of that the `drush_archive_md5sum` parameter has been replaced with `drush_archive_checksum` and
 `drush_archive_checksum_type`, the default checksum type is now `SHA256`.
