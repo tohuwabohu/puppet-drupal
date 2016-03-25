@@ -1,4 +1,4 @@
-# Class = '$params
+# == Class: drupal::params
 #
 # Default configuration values for the `drupal` class.
 #
