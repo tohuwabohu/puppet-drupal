@@ -225,7 +225,7 @@ define drupal::site (
         # true (bootstrap has failed); hence the status safe-guard above.
         "test -n \"`${drush_check_pending_database_updates}`\"" ,
     ],
-    user    => $process,
+    user    => $real_process,
     timeout => $timeout,
     noop    => $real_database_updates_disable,
     path    => $drupal::exec_paths,

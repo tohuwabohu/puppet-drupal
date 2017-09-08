@@ -8,6 +8,7 @@ describe 'drupal::site' do
   let(:document_root) { '/var/www/dummy' }
   let(:drupal_site_dir) { '/opt/drupal.org/dummy-f07cd86e789c50de12f7d1cdb41e6f4156fcc08b' }
   let(:cron_file) { '/etc/cron.d/drupal-dummy' }
+  let(:update_exec) { 'update-drupal-dummy-database' }
   let(:defaults)  {{ :core_version => '7.0' }}
 
   describe 'by default' do
@@ -25,6 +26,7 @@ describe 'drupal::site' do
     specify { should contain_file(cron_file).with_ensure('present') }
     specify { should contain_file(cron_file).with_content(/MAILTO=""/) }
     specify { should contain_file(cron_file).with_content(/PATH=\/usr\/local\//) }
+    specify { should contain_exec(update_exec).with_user('www-data') }
   end
 
   describe 'with core_version => 6.33' do
@@ -349,6 +351,7 @@ describe 'drupal::site' do
     specify { should contain_file(settings_file).with_group('dummy') }
     specify { should contain_file(files_dir).with_owner('dummy') }
     specify { should contain_file(files_dir).with_group('dummy') }
+    specify { should contain_exec(update_exec).with_user('dummy') }
   end
 
   describe 'with files_manage => false' do
