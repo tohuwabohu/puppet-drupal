@@ -1,10 +1,10 @@
-#drupal
+# drupal
 
-##Overview
+## Overview
 
 Install and manage different versions of Drupal including modules and sites.
 
-##Usage
+## Usage
 
 The module uses [Drush](https://github.com/drush-ops/drush) and the Drush makefiles to manage a Drupal site
 configuration. So everytime any of the Puppet configuration changes, the whole site will be rebuild from ground. To be
@@ -114,7 +114,7 @@ drupal::site { 'example.com':
 }
 ```
 
-##Limitations
+## Limitations
 
 Drupal-specific
 
@@ -131,7 +131,7 @@ The module has been tested on the following operating systems. Testing and patch
 
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-drupal.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-drupal)
 
-##Contributing
+## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
@@ -139,7 +139,7 @@ The module has been tested on the following operating systems. Testing and patch
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-###Development
+### Development
 
 This project uses rspec-puppet and beaker to ensure the module works as expected and to prevent regressions.
 
