@@ -1,3 +1,7 @@
+## 2017-09-08 - Release 3.0.1
+
+Bugfix release fixing an issue whereas database updates where not run as the configured process user but `root` instead.
+
 ## 2016-03-23 - Release 3.0.0
 ### Summary
 
