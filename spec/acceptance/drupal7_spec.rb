@@ -7,7 +7,7 @@ describe 'drupal-7.x' do
     class { 'drupal': }
 
     drupal::site { 'drupal-7.x':
-      core_version => '7.32',
+      core_version => '7.56',
       modules      => {
         'ctools'   => {
           'download' => {
@@ -35,11 +35,11 @@ describe 'drupal-7.x' do
         },
       },
       libraries    => {
-        'jquery_ui' => {
+        'jquery_cycle' => {
           'download' => {
             'type' => 'file',
-            'url'  => 'http://jquery-ui.googlecode.com/files/jquery.ui-1.6.zip',
-            'md5'  => 'c177d38bc7af59d696b2efd7dda5c605',
+            'url'  => 'https://github.com/malsup/cycle/archive/3.0.3.zip',
+            'md5'  => '21cccf32fbec6bf8fb3a32e9acbf9b20',
           },
         },
       },
@@ -63,7 +63,7 @@ describe 'drupal-7.x' do
   end
 
   describe file('/var/www/drupal-7.x/modules/system/system.info') do
-    its(:content) { should match /version = "7.32"/ }
+    its(:content) { should match /version = "7.56"/ }
   end
 
   describe file('/var/www/drupal-7.x/sites/all/modules/ctools/ctools.info') do
@@ -90,7 +90,7 @@ describe 'drupal-7.x' do
     its(:content) { should match /version = "7.x-5.5"/ }
   end
 
-  describe file('/var/www/drupal-7.x/sites/all/libraries/jquery_ui/jquery-1.2.6.js') do
+  describe file('/var/www/drupal-7.x/sites/all/libraries/jquery_cycle/jquery.cycle.lite.js') do
     specify { should be_file }
   end
 end
