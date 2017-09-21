@@ -8,7 +8,7 @@ describe 'a broken module' do
       class { 'drupal': }
 
       drupal::site { 'broken':
-        core_version => '7.32',
+        core_version => '7.56',
         modules      => {
           'nonexistant' => '1.0',
         },
