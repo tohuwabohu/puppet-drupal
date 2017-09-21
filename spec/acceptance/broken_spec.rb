@@ -1,10 +1,13 @@
 require 'spec_helper_acceptance'
-include TestDependencies
 
 describe 'a broken module' do
   specify 'should fail the puppet run' do
     pp = <<-EOS
-      # test manifest
+      # test manifest    
+      file { '/var/www':
+        ensure => directory,
+      }
+
       class { 'drupal': }
 
       drupal::site { 'broken':
@@ -15,6 +18,6 @@ describe 'a broken module' do
       }
     EOS
 
-    apply_manifest(with_test_dependencies(pp), :acceptable_exit_codes => [91])
+    apply_manifest(pp, :acceptable_exit_codes => [91])
   end
 end

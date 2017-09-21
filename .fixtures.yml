@@ -2,9 +2,9 @@ fixtures:
   repositories:
     archive:
       repo: "https://github.com/camptocamp/puppet-archive.git"
-      ref: "0.8.1"
+      ref: "0.9.0"
     stdlib:
       repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-      ref: "4.11.0"
+      ref: "4.15.0"
   symlinks:
     drupal: "#{source_dir}"
