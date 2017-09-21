@@ -1,3 +1,10 @@
+## 2017-09-22 - Release 3.0.2
+
+Bugfix release which fixes a regression introduced in 3.0.1: it causes the database update script to fail due to 
+missing permissions to write into or create the designated log file. After reviewing the code it was concluded the 
+log file is not needed as Puppet can capture the log as well. Hence the log redirect was removed and the `log_dir` 
+parameter marked as deprecated.
+
 ## 2017-09-08 - Release 3.0.1
 
 Bugfix release fixing an issue whereas database updates where not run as the configured process user but `root` instead.
