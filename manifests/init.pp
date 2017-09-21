@@ -12,6 +12,7 @@
 #
 # [*log_dir*]
 #   Set the root directory where the write output of the drush command to.
+#   -- deprecated, no longer in use --
 #
 # [*www_dir*]
 #   Set the root directory where to create the document root for all managed Drupal sites.
@@ -55,7 +56,7 @@
 class drupal (
   $install_dir                 = $drupal::params::install_dir,
   $config_dir                  = $drupal::params::config_dir,
-  $log_dir                     = $drupal::params::log_dir,
+  $log_dir                     = $drupal::params::log_dir,  # deprecated, no longer in use
   $www_dir                     = $drupal::params::www_dir,
   $www_process                 = $drupal::params::www_process,
   $exec_paths                  = $drupal::params::exec_paths,

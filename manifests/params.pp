@@ -13,6 +13,8 @@
 class drupal::params {
   $install_dir = '/opt/drupal.org'
   $config_dir = '/etc/drush'
+
+  # deprecated, no longer in use
   $log_dir = '/var/log/drush'
 
   $www_dir = '/var/www'

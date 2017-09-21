@@ -32,6 +32,7 @@ class drupal::install inherits drupal {
     mode   => '0644',
   }
 
+  # deprecated, no longer in use
   file { $drupal::log_dir:
     ensure => directory,
     owner  => 'root',

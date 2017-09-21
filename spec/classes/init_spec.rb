@@ -28,12 +28,6 @@ describe 'drupal' do
     specify { should contain_file('/path/to/dir').with_ensure('directory') }
   end
 
-  describe 'with log_dir => /path/to/dir' do
-    let(:params) { {:log_dir => '/path/to/dir'} }
-
-    specify { should contain_file('/path/to/dir').with_ensure('directory') }
-  end
-
   describe 'with drush_version => 7.0.0' do
     let(:params) { {:drush_version => '7.0.0'} }
 
