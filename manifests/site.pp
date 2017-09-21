@@ -244,25 +244,25 @@ define drupal::site (
   #
 
   # first update the Drush makefile
-  File[$config_file] ->
+  File[$config_file]
 
   # then rebuild the site (if necessary) ...
-  Exec["rebuild-drupal-${title}"] ->
+  -> Exec["rebuild-drupal-${title}"]
 
   # then update links to the data directory
-  File[$real_files_path] ->
+  -> File[$real_files_path]
 
   # then update the settings file
-  File[$settings_file] ->
+  -> File[$settings_file]
 
   # and create a link to the settings file
-  File["${drupal_site_dir}/sites/default/settings.php"] ->
+  -> File["${drupal_site_dir}/sites/default/settings.php"]
 
   # run any outstanding database updates
-  Exec["update-drupal-${title}-database"] ->
+  -> Exec["update-drupal-${title}-database"]
 
   # and if everything goes well - update the document root
-  File[$real_document_root] ->
+  -> File[$real_document_root]
 
-  File[$real_cron_file_path]
+  -> File[$real_cron_file_path]
 }
