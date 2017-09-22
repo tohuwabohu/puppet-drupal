@@ -7,8 +7,7 @@ HOSTS:
     image: debian:8
     docker_preserve_image: true
     docker_image_commands:
-      - 'apt-get update'
-      - 'apt-get -qqy install wget'
+      - 'apt-get update && apt-get -y --no-install-recommends install curl wget git unzip php5-cli'
 
 CONFIG:
   type: foss

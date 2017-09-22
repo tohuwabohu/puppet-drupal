@@ -1,9 +1,12 @@
 require 'spec_helper_acceptance'
-include TestDependencies
 
 describe 'drupal-7.x' do
   pp = <<-EOS
-    # test manifest
+    # test manifest          
+    file { '/var/www':
+      ensure => directory,
+    }
+
     class { 'drupal': }
 
     drupal::site { 'drupal-7.x':
@@ -47,11 +50,11 @@ describe 'drupal-7.x' do
   EOS
 
   specify 'should provision with no errors' do
-    apply_manifest(with_test_dependencies(pp), :catch_failures => true)
+    apply_manifest(pp, :catch_failures => true)
   end
 
   specify 'should be idempotent' do
-    apply_manifest(with_test_dependencies(pp), :catch_changes => true)
+    apply_manifest(pp, :catch_changes => true)
   end
 
   describe file('/etc/drush/drupal-7.x.make') do

@@ -1,13 +1,20 @@
 require 'spec_helper_acceptance'
-include TestDependencies
 
 describe 'drupal' do
+  manifest = <<-EOS
+    file { '/var/www':
+      ensure => directory,
+    }
+
+    class { 'drupal': }
+  EOS
+
   specify 'should provision with no errors' do
-    apply_manifest(with_test_dependencies("class { 'drupal': }"), :catch_failures => true)
+    apply_manifest(manifest, :catch_failures => true)
   end
 
   specify 'should be idempotent' do
-    apply_manifest(with_test_dependencies("class { 'drupal': }"), :catch_changes => true)
+    apply_manifest(manifest, :catch_changes => true)
   end
 
   describe file('/opt/drupal.org/drush') do

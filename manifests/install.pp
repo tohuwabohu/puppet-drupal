@@ -58,18 +58,14 @@ class drupal::install inherits drupal {
     require          => File[$drupal::install_dir],
   }
 
-  ->
-
-  file { $drush_install_path:
+  -> file { $drush_install_path:
     ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
   }
 
-  ->
-
-  file { $drupal::drush_path:
+  -> file { $drupal::drush_path:
     ensure => link,
     target => $drush_install_path,
   }

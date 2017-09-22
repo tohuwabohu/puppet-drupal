@@ -1,3 +1,7 @@
+## 2017-09-22 - Release 3.1.0
+
+Update test infrastructure and add support for Puppet 5.
+
 ## 2017-09-22 - Release 3.0.2
 
 Bugfix release which fixes a regression introduced in 3.0.1: it causes the database update script to fail due to 
