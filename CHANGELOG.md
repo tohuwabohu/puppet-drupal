@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This version updates the build and test infrastructure to catch up with reality. There have been no changes to the
 Puppet code itself.
 
+The next major release will replace camptocamp/archive with puppet/archive.
+
 #### Added
           
 - Mark module compatible with Puppet 6.x and 7.x
@@ -24,6 +26,10 @@ Puppet code itself.
   - Replace Debian 6 and 7 with 9 and 10
   - Replace Ubuntu 12.04 and 14.04 with 18.04 and 20.04
   - Remove outdated Drupal 6 test case
+                                         
+### Deprecated
+
+- Dependency camptocamp/archive will be replaced with puppet/archive in the next major release 
 
 ## 2017-09-22 - Release 3.1.0
 
