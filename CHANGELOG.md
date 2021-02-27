@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0](https://github.com/tohuwabohu/puppet-drupal/tree/v4.0.0) (2021-02-27)
+                      
+### Summary
+
+The only change in this release is the update from the unmaintained `camptocamp/archive` to `puppet/archive`. This
+includes the replacement of the private define `archive::download` with recommended public define `archive`.
+
 ## [3.3.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.3.0) (2021-02-27)
                       
 ### Added
 
-- Puppet data types to `drupal` class and `drupal::site` define
+- Puppet data types to `drupal` class and `drupal::site` define; for Puppet 3 users this is a breaking change.
 
 ## [3.2.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.2.0) (2021-02-27)
                       

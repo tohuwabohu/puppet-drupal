@@ -47,15 +47,11 @@ class drupal::install inherits drupal {
     mode   => '0644',
   }
 
-  archive::download { $drush_filename:
-    ensure           => present,
-    url              => $drush_download_url,
-    digest_string    => $drupal::drush_archive_checksum,
-    digest_type      => $drupal::drush_archive_checksum_type,
-    src_target       => $drush_install_dir,
-    timeout          => 60,
-    follow_redirects => true,
-    require          => File[$drupal::install_dir],
+  archive { "${drush_install_dir}/${drush_filename}":
+    source        => $drush_download_url,
+    checksum      => $drupal::drush_archive_checksum,
+    checksum_type => $drupal::drush_archive_checksum_type,
+    require       => File[$drupal::install_dir],
   }
 
   -> file { $drush_install_path:

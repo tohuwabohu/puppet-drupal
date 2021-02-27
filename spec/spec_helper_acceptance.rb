@@ -7,7 +7,7 @@ require 'beaker/module_install_helper'
 install_puppet_agent_on(hosts, {:puppet_collection => 'puppet' } )
 install_module_on(hosts)
 install_module_from_forge_on(hosts, 'puppetlabs-stdlib', '= 6.6.0')
-install_module_from_forge_on(hosts, 'camptocamp-archive', '= 0.9.0')
+install_module_from_forge_on(hosts, 'puppet-archive', '= 4.6.0')
 
 RSpec.configure do |c|
   c.formatter = :documentation
