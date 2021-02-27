@@ -129,10 +129,10 @@ Drupal-specific
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
-* Debian 7.0 (Wheezy)
-* Debian 8.0 (Jessie)
-* Ubuntu 12.04 (Precise Pangolin); upgrade to PHP 5.4 required
-* Ubuntu 14.04 (Trusty Tahr)
+* Debian 9.0 (Stretch)
+* Debian 10.0 (Buster)
+* Ubuntu 18.04 (Bionic Beaver)
+* Ubuntu 20.04 (Focal Fossa)
 
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-drupal.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-drupal)
 
