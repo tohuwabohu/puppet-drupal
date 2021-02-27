@@ -57,7 +57,7 @@ describe 'drupal::site' do
     let(:params) { defaults.merge(:modules => 'should be a hash') }
 
     specify do
-      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /should be a hash/)
+      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /expects a Hash value, got/)
     end
   end
 
@@ -125,7 +125,7 @@ describe 'drupal::site' do
     let(:params) { defaults.merge(:themes => 'should be a hash') }
 
     specify do
-      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /should be a hash/)
+      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /expects a Hash value, got/)
     end
   end
 
@@ -193,7 +193,7 @@ describe 'drupal::site' do
     let(:params) { defaults.merge(:libraries => 'should be a hash') }
 
     specify do
-      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /should be a hash/)
+      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /expects a Hash value, got/)
     end
   end
 
@@ -365,7 +365,7 @@ describe 'drupal::site' do
     let(:params) { defaults.merge({:files_manage => 'invalid'}) }
 
     specify do
-      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /is not a boolean/)
+      expect { should contain_file(make_file) }.to raise_error(Puppet::Error, /expects a Boolean value, got/)
     end
   end
 

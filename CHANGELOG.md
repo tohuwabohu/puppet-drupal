@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.3.0) (2021-02-27)
+                      
+### Added
+
+- Puppet data types to `drupal` class and `drupal:site` define
+
 ## [3.2.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.2.0) (2021-02-27)
                       
 ### Summary
@@ -13,7 +19,7 @@ Puppet code itself.
 
 The next major release will replace camptocamp/archive with puppet/archive.
 
-#### Added
+### Added
           
 - Mark module compatible with Puppet 6.x and 7.x
 - Mark module compatible with latest puppetlabs/stdlib release 
