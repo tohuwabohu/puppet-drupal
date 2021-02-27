@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 The only change in this release is the update from the unmaintained `camptocamp/archive` to `puppet/archive`. This
 includes the replacement of the private define `archive::download` with recommended public define `archive`.
+                        
+### Breaking change
+
+- Replace `camptocamp/archive` with `puppet/archive` which is essentially a drop-in replacement
+- Replace usage of `archive::download` with `archive`
 
 ## [3.3.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.3.0) (2021-02-27)
                       
