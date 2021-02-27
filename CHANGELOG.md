@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrate from travis-ci.org to Github Actions due to pending shutdown :sob:
-  
+- Dropped test support for Puppet 3 and 4  
 
 ## 2017-09-22 - Release 3.1.0
 
