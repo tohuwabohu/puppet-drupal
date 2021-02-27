@@ -4,7 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unrelease](https://github.com/tohuwabohu/puppet-drupal/tree/v3.2.0)
+## [3.2.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.2.0) (2021-02-27)
+                      
+### Summary
+
+This version updates the build and test infrastructure to catch up with reality. There have been no changes to the
+Puppet code itself.
+
+#### Added
+          
+- Mark module compatible with Puppet 6.x and 7.x
 
 ### Changed
 
