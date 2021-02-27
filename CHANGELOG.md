@@ -14,6 +14,7 @@ Puppet code itself.
 #### Added
           
 - Mark module compatible with Puppet 6.x and 7.x
+- Mark module compatible with latest puppetlabs/stdlib release 
 
 ### Changed
 
