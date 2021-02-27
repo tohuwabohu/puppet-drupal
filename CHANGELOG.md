@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
                       
 ### Added
 
-- Puppet data types to `drupal` class and `drupal:site` define
+- Puppet data types to `drupal` class and `drupal::site` define
 
 ## [3.2.0](https://github.com/tohuwabohu/puppet-drupal/tree/v3.2.0) (2021-02-27)
                       
