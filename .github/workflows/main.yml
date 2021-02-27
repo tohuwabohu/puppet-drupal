@@ -1,0 +1,50 @@
+name: build-and-test
+on: [push]
+jobs:
+  unit-tests:
+    name: "Puppet ${{ matrix.puppet-version }} Unit Tests"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - ruby-version: 2.1
+            puppet-version: 3
+          - ruby-version: 2.3
+            puppet-version: 4
+          - ruby-version: 2.4
+            puppet-version: 5
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{matrix.ruby-version}}
+      - run: bundle install
+        env:
+          PUPPET_VERSION: "~> ${{ matrix.puppet-version }}"
+      - run: bundle exec rake test
+        env:
+          PUPPET_VERSION: "~> ${{ matrix.puppet-version }}"
+          SPEC_OPTS: '--format documentation'
+          RUBYOPT: "-W0"
+
+  acceptance-tests:
+    name: "${{ matrix.label }} Acceptance Tests"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - beaker-set: debian-7-64
+            label: "Debian 7"
+          - beaker-set: default
+            label: "Debian 8"
+          - beaker-set: ubuntu-1404-64
+            label: "Ubuntu 14.04"
+    steps:
+      - uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+      - run: bundle install
+      - run: bundle exec rake beaker
