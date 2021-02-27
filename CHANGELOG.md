@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update acceptance tests:
   - Replace Debian 6 and 7 with 9 and 10
   - Replace Ubuntu 12.04 and 14.04 with 18.04 and 20.04
+  - Remove outdated Drupal 6 test case
 
 ## 2017-09-22 - Release 3.1.0
 
