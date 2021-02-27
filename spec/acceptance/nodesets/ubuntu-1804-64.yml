@@ -1,0 +1,13 @@
+HOSTS:
+  ubuntu-1804-x64:
+    platform: ubuntu-1804-x86_64
+    hypervisor: docker
+    image: ubuntu:18.04
+    docker_preserve_image: true
+    docker_image_commands:
+      - 'apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install curl wget git unzip php-cli php-xml'
+
+CONFIG:
+  type: aio
+  log_level: info
+  trace_limit: 100

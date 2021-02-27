@@ -15,7 +15,7 @@ describe 'drupal-7.x' do
         'ctools'   => {
           'download' => {
             'type'     => 'git',
-            'url'      => 'git://git.drupal.org/project/ctools.git',
+            'url'      => 'https://git.drupalcode.org/project/ctools.git',
             'revision' => '5438b40dbe532af6a7eca891c86eaef845bff945',
           },
         },

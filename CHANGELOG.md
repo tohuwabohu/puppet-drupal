@@ -1,3 +1,20 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [unrelease](https://github.com/tohuwabohu/puppet-drupal/tree/v3.2.0)
+
+### Changed
+
+- Migrate from travis-ci.org to Github Actions due to pending shutdown :sob:
+- Update coverage of Puppet version in unit tests: [3.x, 4.x, 5.x] to [5.x, 6.x, 7.x] 
+- Update acceptance tests:
+  - Replace Debian 6 and 7 with 9 and 10
+  - Replace Ubuntu 12.04 and 14.04 with 18.04 and 20.04
+  - Remove outdated Drupal 6 test case
+
 ## 2017-09-22 - Release 3.1.0
 
 Update test infrastructure and add support for Puppet 5.
