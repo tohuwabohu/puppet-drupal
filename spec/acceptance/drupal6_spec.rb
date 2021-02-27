@@ -25,7 +25,7 @@ describe 'drupal-6.x' do
         'marinelli' => {
           'download' => {
             'type'     => 'git',
-            'url'      => 'git://git.drupal.org/project/marinelli.git',
+            'url'      => 'https://git.drupalcode.org/project/marinelli.git',
             'revision' => 'fef7745f64541cbe8c746167d3fe37dca133b87b',
           },
         },
