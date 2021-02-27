@@ -1,5 +1,10 @@
 # drupal
 
+[![License](https://img.shields.io/github/license/tohuwabohu/puppet-drupal.svg)](https://github.com/tohuwabohu/puppet-drupal/blob/master/LICENSE.txt)
+[![build-and-test](https://github.com/tohuwabohu/puppet-drupal/actions/workflows/main.yml/badge.svg)](https://github.com/tohuwabohu/puppet-drupal/actions/workflows/main.yml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/tohuwabohu/drupal.svg)](https://forge.puppetlabs.com/tohuwabohu/drupal)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/tohuwabohu/drupal.svg)](https://forge.puppetlabs.com/tohuwabohu/drupal)
+
 ## Overview
 
 Install and manage different versions of Drupal including modules and sites.
