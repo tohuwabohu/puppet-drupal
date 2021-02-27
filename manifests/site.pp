@@ -71,35 +71,29 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define drupal::site (
-  $core_version             = undef,
-  $modules                  = {},
-  $themes                   = {},
-  $libraries                = {},
-  $settings_content         = undef,
-  $settings_mode            = undef,
-  $files_path               = 'sites/default/files',
-  $files_target             = undef,
-  $files_mode               = '0644',
-  $files_manage             = true,
-  $cron_email_address       = undef,
-  $cron_file_path           = undef,
-  $cron_file_ensure         = present,
-  $database_updates_disable = undef,
-  $makefile_content         = undef,
-  $document_root            = undef,
-  $process                  = undef,
-  $timeout                  = undef,
+  Optional[String] $core_version = undef,
+  Hash $modules = {},
+  Hash $themes = {},
+  Hash $libraries = {},
+  Optional[String] $settings_content = undef,
+  Optional[String] $settings_mode = undef,
+  String $files_path = 'sites/default/files',
+  Optional[Stdlib::Absolutepath] $files_target = undef,
+  String $files_mode = '0644',
+  Boolean $files_manage = true,
+  Optional[String] $cron_email_address = undef,
+  Optional[Stdlib::Absolutepath] $cron_file_path = undef,
+  Enum['present', 'absent'] $cron_file_ensure = present,
+  Boolean $database_updates_disable = false,
+  Optional[String] $makefile_content = undef,
+  Optional[Stdlib::Absolutepath] $document_root = undef,
+  Optional[String] $process = undef,
+  Optional[Integer] $timeout = undef,
 ) {
 
   require drupal
 
-  validate_hash($modules)
-  validate_hash($themes)
-  validate_hash($libraries)
-  validate_bool($files_manage)
-
   $real_document_root = pick($document_root, "${drupal::www_dir}/${title}")
-  validate_absolute_path($real_document_root)
 
   if empty($makefile_content) {
     if $core_version !~ /^[a-zA-Z0-9\._-]+$/ {
@@ -150,6 +144,7 @@ define drupal::site (
   $drush_check_database_connectivity = "${drupal::drush_path} status bootstrap --field-labels=0 --root=${drupal_site_dir} 2>&1"
   $drush_check_pending_database_updates = "${drupal::drush_path} updatedb-status --pipe --root=${drupal_site_dir} 2>&1"
 
+  # FIXME: this should be a plain boolean and return false but it doesn't - relict of Puppet 3.x?
   $real_database_updates_disable = $database_updates_disable ? {
     # If updates are enabled, the resource noop takes precedence over the global noop settings and hence would be
     # executed during a simulated Puppet run.

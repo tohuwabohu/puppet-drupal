@@ -54,31 +54,20 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class drupal (
-  $install_dir                 = $drupal::params::install_dir,
-  $config_dir                  = $drupal::params::config_dir,
-  $log_dir                     = $drupal::params::log_dir,  # deprecated, no longer in use
-  $www_dir                     = $drupal::params::www_dir,
-  $www_process                 = $drupal::params::www_process,
-  $exec_paths                  = $drupal::params::exec_paths,
-  $drush_version               = $drupal::params::drush_version,
-  $drush_archive_checksum      = $drupal::params::drush_archive_checksum,
-  $drush_archive_checksum_type = $drupal::params::drush_archive_checksum_type,
-  $drush_path                  = $drupal::params::drush_path,
-  $drush_concurrency_level     = $drupal::params::drush_concurrency_level,
-  $update_script_path          = $drupal::params::update_script_path,
-  $update_script_template      = $drupal::params::update_script_template,
+  Stdlib::Absolutepath $install_dir = $drupal::params::install_dir,
+  Stdlib::Absolutepath $config_dir = $drupal::params::config_dir,
+  Optional[Stdlib::Absolutepath] $log_dir = $drupal::params::log_dir,  # deprecated, no longer in use
+  Stdlib::Absolutepath $www_dir = $drupal::params::www_dir,
+  String $www_process = $drupal::params::www_process,
+  Array[String] $exec_paths = $drupal::params::exec_paths,
+  String $drush_version = $drupal::params::drush_version,
+  String $drush_archive_checksum = $drupal::params::drush_archive_checksum,
+  String $drush_archive_checksum_type = $drupal::params::drush_archive_checksum_type,
+  Stdlib::Absolutepath $drush_path = $drupal::params::drush_path,
+  Integer $drush_concurrency_level = $drupal::params::drush_concurrency_level,
+  Stdlib::Absolutepath $update_script_path = $drupal::params::update_script_path,
+  String $update_script_template = $drupal::params::update_script_template,
 ) inherits drupal::params {
-
-  validate_absolute_path($install_dir)
-  validate_absolute_path($config_dir)
-  validate_absolute_path($log_dir)
-  validate_absolute_path($www_dir)
-  validate_string($www_process)
-  validate_string($drush_version)
-  validate_string($drush_archive_checksum)
-  validate_string($drush_archive_checksum_type)
-  validate_absolute_path($drush_path)
-  validate_absolute_path($update_script_path)
 
   class { 'drupal::install': }
 }
