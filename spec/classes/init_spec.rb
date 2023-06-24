@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'drupal' do
   let(:title) { 'drupal' }
-  let(:drush_path) { '/opt/drupal.org/drush/drush-8.0.5.phar' }
+  let(:drush_version) { '8.4.12' }
+  let(:drush_path) { "/opt/drupal.org/drush/drush-#{drush_version}.phar" }
 
   describe 'by default' do
     let(:params) { {} }
@@ -12,7 +13,7 @@ describe 'drupal' do
     specify { should contain_file('/var/log/drush').with_ensure('directory') }
     specify { should contain_file('/usr/local/sbin/drupal-update.sh').with_ensure('file') }
     specify { should contain_archive(drush_path) }
-    specify { should contain_archive(drush_path).with_source(/8\.0\.5\/drush\.phar/) }
+    specify { should contain_archive(drush_path).with_source(/#{drush_version}\/drush\.phar/) }
     specify { should contain_archive(drush_path).with_checksum_type('sha256') }
   end
 
