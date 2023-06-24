@@ -21,13 +21,12 @@ describe 'drupal' do
     specify { should be_directory }
   end
 
-  describe file('/opt/drupal.org/drush/drush-8.0.5.phar') do
+  describe file('/usr/local/bin/drush') do
     specify { should be_file }
     specify { should be_executable }
   end
 
-  describe file('/usr/local/bin/drush') do
-    specify { should be_file }
-    specify { should be_executable }
+  describe command('drush --version') do
+    its(:exit_status) { should eq 0 }
   end
 end

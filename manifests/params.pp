@@ -29,8 +29,8 @@ class drupal::params {
     '/bin'
   ]
 
-  $drush_version = '8.0.5'
-  $drush_archive_checksum = 'f6fc333036d8993bd2a834c277e262d200c3075e82c869c213c62ce331f86b77'
+  $drush_version = '8.4.12'
+  $drush_archive_checksum = '62d0fd943eb6d4b24900cfe278be0a5af638a3852aa37f855a08c660675041ac'
   $drush_archive_checksum_type = 'sha256'
   $drush_concurrency_level = 1
   $drush_path = '/usr/local/bin/drush'

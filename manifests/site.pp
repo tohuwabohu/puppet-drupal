@@ -117,7 +117,6 @@ define drupal::site (
 
   $real_files_path = "${drupal_site_dir}/${files_path}"
   $real_files_target = pick($files_target, "/var/lib/${title}")
-  validate_absolute_path($real_files_target)
 
   $settings_file = "${drupal::config_dir}/${title}.settings.php"
   if empty($settings_content) {
