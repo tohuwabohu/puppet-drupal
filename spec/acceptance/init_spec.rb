@@ -26,4 +26,8 @@ describe 'drupal' do
     specify { should be_executable }
     specify { should be be_linked_to /\/opt\/drupal.org\/drush\/drush-[\d\\.]+\.phar/ }
   end
+
+  describe command('drush --version') do
+    its(:exit_status) { should eq 0 }
+  end
 end
