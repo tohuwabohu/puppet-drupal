@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Drush: 8.0.5 to 8.4.12; this should fix the `Unknown archive format.` error.
 - Puppet dependencies: puppetlabs/stdlib and puppet/archive
+- OS compatibility: remove Debian 9, add Debian 11, remove Ubuntu 18.04, add Ubuntu 22.04
 
 ## Unreleased
 
