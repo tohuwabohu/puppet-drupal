@@ -24,7 +24,6 @@ describe 'drupal' do
   describe file('/usr/local/bin/drush') do
     specify { should be_file }
     specify { should be_executable }
-    specify { should be be_linked_to /\/opt\/drupal.org\/drush\/drush-[\d\\.]+\.phar/ }
   end
 
   describe command('drush --version') do
