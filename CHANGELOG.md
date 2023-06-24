@@ -3,19 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-              
-## Unreleased
+
+## [4.0.1](https://github.com/tohuwabohu/puppet-drupal/tree/v4.0.1) (2023-06-24)
+
+This is a maintenance release which updates dependencies and the acceptance tests. No changes were made to the module 
+itself.
 
 ### Updated
 
 - Drush: 8.0.5 to 8.4.12; this should fix the `Unknown archive format.` error.
 - Puppet dependencies: puppetlabs/stdlib and puppet/archive
-- OS compatibility: remove Debian 9, add Debian 11, remove Ubuntu 18.04, add Ubuntu 22.04
-
-## Unreleased
-
-### Updated
-
 - OS compatibility: remove Debian 9, add Debian 11, remove Ubuntu 18.04, add Ubuntu 22.04
 
 ## [4.0.0](https://github.com/tohuwabohu/puppet-drupal/tree/v4.0.0) (2021-02-27)
