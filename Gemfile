@@ -3,7 +3,7 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 group :development, :test do
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.10'
-  gem 'rspec-puppet', '~> 3.0'              # 4.0 blocked by Puppet 6
+  gem 'rspec-puppet', '~> 4.0'              # 4.0 blocked by Puppet 6
   gem 'pdk', '~> 3.0'
   gem 'puppetlabs_spec_helper', '~> 6.0.2'  # 7.0 blocked by Puppet 6
   gem 'puppet-blacksmith', '~> 6.1'
