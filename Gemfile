@@ -10,7 +10,7 @@ group :development, :test do
   gem 'puppet-lint', '~> 4.0'
   gem 'metadata-json-lint', '~> 4.0'
   gem 'puppet-lint-unquoted_string-check', '~> 3.0'
-  gem 'puppet-syntax', '~> 3.1'
+  gem 'puppet-syntax', '~> 4.1'
 end
 
 group :system_tests do
